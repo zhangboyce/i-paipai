@@ -1,0 +1,36 @@
+<!--pages/home/home.wxml-->
+
+<view class="home">
+  <view class="home-banner">
+    <image src="/images/home/banner.jpg"></image>
+    <text>我的相册</text>
+  </view>
+
+  <view class="home-sub-bar">
+    <image class="icon-date" src='/images/home/time-active.png'></image>
+    <text class="text-date active">时间轴</text>
+    <image class="icon-category" src='/images/home/category.png'></image>
+    <text class="text-category">分类</text>
+    <image class="icon-search" src="/images/home/search.png"></image>
+  </view>
+
+  <view class="no-content">
+      <image src="/images/home/no-image.png"></image>
+      <text>暂无照片</text>
+  </view>
+
+  <view class="home-bar-warp">
+    <view class="home-bar-width">
+      <image class="bar-bottom-image" src="/images/tab/picture.png"></image>
+    </view>
+    <view class="home-bar-width" catchtap='showPhoto'>
+      <image class="bar-bottom-image icon-home-photo" src="/images/tab/photo.png"></image>
+    </view>
+    <view class="home-bar-width" catchtap="toMine">
+      <image class="bar-bottom-image" src="/images/tab/mine.png"></image>
+    </view>
+  </view>
+
+</view>
+
+
