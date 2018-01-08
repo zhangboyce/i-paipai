@@ -41,8 +41,6 @@ App({
         wx.getUserInfo({
           withCredentials: true,
           success: function (data) {
-            console.log("code:" + res.code);
-            console.log("data:" + data);
             that.setUserInfo(data.userInfo);
             // that.setToken(data.session);
           },

@@ -1,36 +1,70 @@
 <!--pages/home/home.wxml-->
-
-<view class="home">
-  <view class="home-banner">
-    <image src="/images/home/banner.jpg"></image>
-    <text>我的相册</text>
-  </view>
-
-  <view class="home-sub-bar">
-    <image class="icon-date" src='/images/home/time-active.png'></image>
-    <text class="text-date active">时间轴</text>
-    <image class="icon-category" src='/images/home/category.png'></image>
-    <text class="text-category">分类</text>
-    <image class="icon-search" src="/images/home/search.png"></image>
-  </view>
-
-  <view class="no-content">
-      <image src="/images/home/no-image.png"></image>
-      <text>暂无照片</text>
-  </view>
-
-  <view class="home-bar-warp">
-    <view class="home-bar-width">
-      <image class="bar-bottom-image" src="/images/tab/picture.png"></image>
+<scroll-view scroll-y style="height:{{scrollHeight}}rpx" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+  <view class="home">
+    <view class="home-banner">
+      <image src="/images/home/banner.jpg"></image>
+      <text>我的相册</text>
     </view>
-    <view class="home-bar-width" catchtap='showPhoto'>
-      <image class="bar-bottom-image icon-home-photo" src="/images/tab/photo.png"></image>
+
+    <view class="home-sub-bar {{hasFixed ? 'active' : ''}}" >
+      <block wx:if="{{dateTab}}">
+        <image class="icon-date" catchtap="showDateTab" src='/images/home/time-active.png'></image>
+        <text class="text-date active" catchtap="showDateTab">时间轴</text>
+      </block>
+
+      <block wx:else>
+        <image class="icon-date" catchtap="showDateTab" src='/images/home/time.png'></image>
+        <text class="text-date" catchtap="showDateTab">时间轴</text>
+      </block>
+
+      <block wx:if="{{categoryTab}}">
+        <image class="icon-category" catchtap="showCategoryTab" src='/images/home/category-active.png'></image>
+        <text class="text-category active" catchtap="showCategoryTab">分类</text>
+      </block>
+
+      <block wx:else>
+        <image class="icon-category" catchtap="showCategoryTab" src='/images/home/category.png'></image>
+        <text class="text-category" catchtap="showCategoryTab">分类</text>
+      </block>
+
+      <image class="icon-search" src="/images/home/search.png"></image>
     </view>
-    <view class="home-bar-width" catchtap="toMine">
-      <image class="bar-bottom-image" src="/images/tab/mine.png"></image>
+
+    <view wx:if="{{dateTab}}" style="margin-bottom:80rpx;">
+
+      <block wx:for="{{photoList}}" wx:for-item="photoListItem" wx:key="key">
+        <view class="photo-containder">
+          <text class="date-text">{{photoListItem.uploadDate}}</text>
+          <view class="photo-list">
+            <block wx:for="{{photoListItem.data}}" wx:for-item="list" wx:key="key">
+              <view class="img-container">
+                <image bindtap="imgPreview" data-src="http://oxrcvtr6x.bkt.clouddn.com/{{list.url}}" lazy-load="true" mode="scaleToFill" src="http://oxrcvtr6x.bkt.clouddn.com/{{list.url}}?imageView2/1/w/300/h/300/q/75"></image>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+      <view wx:if="{{!hasData}}" class="no-content">
+        <image src="/images/home/no-image.png"></image>
+        <text>暂无照片</text>
+      </view>
+
     </view>
+    <view wx:else>
+      category
+    </view>
+
+    <view class="home-bar-warp">
+      <view class="home-bar-width">
+        <image class="bar-bottom-image" src="/images/tab/picture.png"></image>
+      </view>
+      <view class="home-bar-width" catchtap='showPhoto'>
+        <image class="bar-bottom-image icon-home-photo" src="/images/tab/photo.png"></image>
+      </view>
+      <view class="home-bar-width" catchtap="toMine">
+        <image class="bar-bottom-image" src="/images/tab/mine.png"></image>
+      </view>
+    </view>
+
   </view>
-
-</view>
-
-
+</scroll-view>
