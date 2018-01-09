@@ -1,4 +1,4 @@
-var appConfig = require('./config.js');
+var appConfig = require('../config.js');
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
