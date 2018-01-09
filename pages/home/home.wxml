@@ -8,26 +8,26 @@
 
     <view class="home-sub-bar {{hasFixed ? 'active' : ''}}">
       <block wx:if="{{dateTab}}">
-        <image class="icon-date" catchtap="showDateTab" src='/images/home/time-active.png'></image>
+        <image class="icon-date" catchtap="showDateTab" src='/images/icon/icon-07.png'></image>
         <text class="text-date active" catchtap="showDateTab">时间轴</text>
       </block>
 
       <block wx:else>
-        <image class="icon-date" catchtap="showDateTab" src='/images/home/time.png'></image>
+        <image class="icon-date" catchtap="showDateTab" src='/images/icon/icon-06.png'></image>
         <text class="text-date" catchtap="showDateTab">时间轴</text>
       </block>
 
       <block wx:if="{{categoryTab}}">
-        <image class="icon-category" catchtap="showCategoryTab" src='/images/home/category-active.png'></image>
+        <image class="icon-category" catchtap="showCategoryTab" src='/images/icon/icon-01.png'></image>
         <text class="text-category active" catchtap="showCategoryTab">分类</text>
       </block>
 
       <block wx:else>
-        <image class="icon-category" catchtap="showCategoryTab" src='/images/home/category.png'></image>
+        <image class="icon-category" catchtap="showCategoryTab" src='/images/icon/icon-02.png'></image>
         <text class="text-category" catchtap="showCategoryTab">分类</text>
       </block>
 
-      <image class="icon-search" src="/images/home/search.png"></image>
+      <image class="icon-search" src="/images/icon/icon-03.png"></image>
     </view>
 
     <view wx:if="{{dateTab}}" style="margin-bottom:80rpx;">
@@ -64,15 +64,16 @@
       </view>
     </view>
 
+
     <view class="home-bar-warp">
       <view class="home-bar-width">
-        <image class="bar-bottom-image" src="/images/tab/picture.png"></image>
+        <image class="bar-bottom-image" src="/images/icon/icon-05.png"></image>
       </view>
       <view class="home-bar-width" catchtap='showPhoto'>
-        <image class="bar-bottom-image icon-home-photo" src="/images/tab/photo.png"></image>
+        <image class="bar-bottom-image icon-home-photo" src="/images/icon/icon-08.png"></image>
       </view>
       <view class="home-bar-width" catchtap="toMine">
-        <image class="bar-bottom-image" src="/images/tab/mine.png"></image>
+        <image class="bar-bottom-image" src="/images/icon/icon-04.png"></image>
       </view>
     </view>
 
