@@ -1,5 +1,6 @@
 // pages/home/home.js
-var photoList = require('../../data/photoInfo-data.js')
+var photoList = require('../../data/photoInfo-data.js');
+var app = getApp();
 Page({
   data: {
     hasData: true,
@@ -13,9 +14,6 @@ Page({
     total:70
   },
   onLoad: function (options) {
-    wx.request({
-      url: '',
-    })
     this.setData({
       photoList: photoList.photoList,
       urlLists: photoList.photoListUrl

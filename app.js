@@ -43,7 +43,7 @@ App({
         wx.getUserInfo({
           withCredentials: true,
           success: function (data) {
-            util.http('api/user/login/' + res.code, 'GET', {}, function (data) {
+            util.http('api/user/login' + res.code, 'GET', {}, function (data) {
               that.setSession(data.sessionId);
             })
             that.setUserInfo(data.userInfo);

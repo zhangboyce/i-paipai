@@ -25,7 +25,7 @@ function http(url, method, data, callBack) {
     url: appConfig.server + url,
     data: data,
     method: method,
-    header:header,
+   // header:header,
     success: function (res) {
       callBack(res.data);
     },
