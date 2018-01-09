@@ -1,13 +1,14 @@
 //app.js
+var util = require('./utils/util.js');
 App({
   onLaunch: function () {
     var that = this;
     wx.checkSession({
       success: function () {
         wx.getStorage({
-          key: 'session',
+          key: 'sessionId',
           success: function (res) {
-            that.globalData.session = res.data;
+            that.globalData.sessionId = res.data;
           },
           fail: function () {
             that.login();
@@ -38,11 +39,14 @@ App({
     var that = this;
     wx.login({
       success: res => {
+      
         wx.getUserInfo({
           withCredentials: true,
           success: function (data) {
+            util.http('api/user/login/' + res.code, 'GET', {}, function (data) {
+              that.setSession(data.sessionId);
+            })
             that.setUserInfo(data.userInfo);
-            // that.setToken(data.session);
           },
           fail: function (res) {
             that.authorizeLoginFail();
@@ -84,14 +88,14 @@ App({
     })
   },
   setSession: function (data) {
-    this.globalData.session = data;
+    this.globalData.sessionId = data;
     wx.setStorage({
-      key: "session",
+      key: "sessionId",
       data: data
     })
   },
   globalData: {
     userInfo: null,
-    session: null
+    sessionId: null
   }
 })
