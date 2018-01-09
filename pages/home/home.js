@@ -10,7 +10,11 @@ Page({
     dateTab: true,
     categoryTab: false,
     scrollTop: 0,
-    hasFixed:false
+    hasFixed:false,
+    showLoadMore: false,
+    showNoMore: false,
+    page: 1,
+    total:70
   },
 
   /**
@@ -118,6 +122,25 @@ Page({
     }else{
       that.setData({
         hasFixed: false
+      })
+    }
+  },
+  refresh: function (e) {
+    console.log("refresh");
+  },
+  loadmore: function (e) {
+    console.log("load more");
+    if (this.data.page * 20 > this.data.total) {
+      this.setData({
+        showLoadMore: false,
+        showNoMore: true
+      });
+    } else {
+      var p = this.data.page;
+      p++;
+      this.setData({
+        page: p,
+        showLoadMore: true
       })
     }
   },

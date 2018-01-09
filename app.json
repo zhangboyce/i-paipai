@@ -7,7 +7,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F7F7F7",
-    "navigationBarTitleText": "i随手拍",
+    "navigationBarTitleText": "脑洞随手拍",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh":"false"
   },
