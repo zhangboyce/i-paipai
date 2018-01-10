@@ -1,69 +1,60 @@
 <!--pages/home/home.wxml-->
-<scroll-view scroll-y style="height:{{scrollHeight}}rpx" bindscrolltoupper="refresh" bindscrolltolower="loadmore" bindscroll="scroll">
+<scroll-view scroll-y style="height:{{ scrollHeight }}rpx" bindscrolltoupper="refresh" bindscrolltolower="loadMore" bindscroll="scroll">
   <view class="home">
     <view class="home-banner">
       <image src="/images/home/banner.jpg"></image>
       <text>我的相册</text>
     </view>
 
-    <view class="home-sub-bar {{hasFixed ? 'active' : ''}}">
-      <block wx:if="{{dateTab}}">
+    <view class="home-sub-bar {{ hasFixed ? 'active' : '' }}">
+      <block wx:if="{{ dateTab }}">
         <image class="icon-date" catchtap="showDateTab" src='/images/icon/icon-07.png'></image>
         <text class="text-date active" catchtap="showDateTab">时间轴</text>
-      </block>
-
-      <block wx:else>
-        <image class="icon-date" catchtap="showDateTab" src='/images/icon/icon-06.png'></image>
-        <text class="text-date" catchtap="showDateTab">时间轴</text>
-      </block>
-
-      <block wx:if="{{categoryTab}}">
-        <image class="icon-category" catchtap="showCategoryTab" src='/images/icon/icon-01.png'></image>
-        <text class="text-category active" catchtap="showCategoryTab">分类</text>
-      </block>
-
-      <block wx:else>
         <image class="icon-category" catchtap="showCategoryTab" src='/images/icon/icon-02.png'></image>
         <text class="text-category" catchtap="showCategoryTab">分类</text>
       </block>
-
+      <block wx:else>
+        <image class="icon-date" catchtap="showDateTab" src='/images/icon/icon-06.png'></image>
+        <text class="text-date" catchtap="showDateTab">时间轴</text>
+        <image class="icon-category" catchtap="showCategoryTab" src='/images/icon/icon-01.png'></image>
+        <text class="text-category active" catchtap="showCategoryTab">分类</text>
+      </block>
       <image class="icon-search" src="/images/icon/icon-03.png"></image>
     </view>
 
-    <view wx:if="{{dateTab}}" style="margin-bottom:80rpx;">
+    <view><text class="total">{{ "共" + total + "张" }}</text></view>
 
+    <view wx:if="{{ dateTab }}" style="margin-bottom:80rpx;">
       <block wx:for="{{ photoList }}" wx:for-item="photoListItem" wx:key="key">
         <view class="photo-containder">
-          <text class="date-text">{{photoListItem.uploadedFormatDate}}</text>
+          <text class="date-text">{{ photoListItem.uploadedFormatDate }}</text>
           <view class="photo-list">
-            <block wx:for="{{photoListItem.data}}" wx:for-item="photo" wx:key="key">
+            <block wx:for="{{ photoListItem.data }}" wx:for-item="photo" wx:key="key">
               <view class="img-container">
-                <image bindtap="imgPreview" data-src="{{photo.url}}" lazy-load="true" mode="scaleToFill" src="{{photo.url}}?imageView2/1/w/300/h/300/q/75"></image>
+                <image bindtap="imgPreview" data-src="{{ photo.url }}" lazy-load="true" mode="scaleToFill" src="{{ photo.url }}?imageView2/1/w/300/h/300/q/75"></image>
               </view>
             </block>
           </view>
         </view>
       </block>
-      <view wx:if="{{!hasData}}" class="no-content">
+      <view wx:if="{{ total == 0 }}" class="no-content">
         <image src="/images/home/no-image.png"></image>
         <text>暂无照片</text>
       </view>
-
     </view>
     <view wx:else>
       category
     </view>
 
-    <view hidden="{{!showLoadMore}}" class="weui-loadmore">
+    <view hidden="{{ !hasMore }}" class="weui-loadmore">
       <view class="weui-loading" />
       <view class="weui-loadmore__tips">正在加载...</view>
     </view>
-    <view hidden="{{!showNoMore}}" class="weui-loadmore weui-loadmore_line">
+    <view hidden="{{ hasMore }}" class="weui-loadmore weui-loadmore_line">
       <view class="weui-loadmore__tips weui-loadmore__tips_in-line">
         <text class="text-tips">到底了</text>
       </view>
     </view>
-
 
     <view class="home-bar-warp">
       <view class="home-bar-width">
@@ -76,6 +67,5 @@
         <image class="bar-bottom-image" src="/images/icon/icon-04.png"></image>
       </view>
     </view>
-
   </view>
 </scroll-view>
