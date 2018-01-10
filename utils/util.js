@@ -61,11 +61,22 @@ function clearError(that) {
   })
 }
 
+
+//两个数组合并去重
+function unique(array, array1) {
+  var setObj = new Set(array)
+  for (var i = 0; i < array1.length; i++) {
+    setObj.add(array1[i]);
+  }
+  return Array.from(setObj);
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
   trim: trim,
   isError: isError,
   groupBy: groupBy,
-  clearError: clearError
+  clearError: clearError,
+  unique: unique
 }  
