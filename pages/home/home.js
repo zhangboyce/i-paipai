@@ -7,11 +7,11 @@ Page({
     dateTab: true,
     categoryTab: false,
     scrollTop: 0,
-    hasFixed:false,
+    hasFixed: false,
     showLoadMore: false,
     showNoMore: false,
     page: 1,
-    total:70
+    total: 70
   },
   onLoad: function (options) {
     this.setData({
@@ -49,17 +49,17 @@ Page({
     })
   },
   scroll: function (e) {
-    var that =this;
+    var that = this;
     var scrollTop = that.data.scrollTop;
     that.setData({
       scrollTop: e.detail.scrollTop
     })
     var hasFixed = that.data.hasFixed;
-    if (scrollTop >= 117 && !that.data.categoryTab && that.data.dateTab){
+    if (scrollTop >= 117 && !that.data.categoryTab && that.data.dateTab) {
       that.setData({
         hasFixed: true
       })
-    }else{
+    } else {
       that.setData({
         hasFixed: false
       })
@@ -91,11 +91,39 @@ Page({
   },
   showPhoto: function () {
     wx.showActionSheet({
-      itemList: ['拍照', '从相册选择'],
-      success: function (res) {
+      itemList: ['拍照片', '相册照片'],
+      success: (res) => {
+        console.log(res.tapIndex);
+        console.log(this);
+        if (!res.cancel) {
+          if (res.tapIndex == 0) {
+            this.chooseWxImage('camera');
+          } else if (res.tapIndex == 1) {
+            this.chooseWxImage('album');
+          }
+        }
       },
       fail: function (res) {
       }
     })
+  },
+  chooseWxImage: function (type) {
+    wx.chooseImage({
+      sizeType: ['compressed'],
+      sourceType: [type],
+      success: (res) => {
+        console.log("res:"+res);
+        wx.setStorage({
+          key: "uploadImages",
+          data: res
+        })
+        wx.navigateTo({
+          url: "../photo/photo"
+        })
+
+      }
+    })
   }
+
+
 })
