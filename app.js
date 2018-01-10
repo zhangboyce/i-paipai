@@ -34,7 +34,6 @@ App({
       success: res => {
         wx.getUserInfo({
           withCredentials: true,
-<<<<<<< HEAD
           success: data => {
             wx.request({
               url: config.server + '/api/user/login/' + res.code,
@@ -48,13 +47,6 @@ App({
                 });
               }
             });
-=======
-          success: function (data) {
-            util.http('api/user/login' + res.code, 'GET', {}, function (data) {
-              that.setSession(data.sessionId);
-            })
-            that.setUserInfo(data.userInfo);
->>>>>>> c388b38ab7f254ba436d3eb2319aa9cc4e20b90e
           },
           fail: res => {
             this.authorizeLoginFail();
