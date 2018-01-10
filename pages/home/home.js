@@ -1,111 +1,107 @@
 var config = require('../../config.js');
 var util = require('../../utils/util.js');
 const app = getApp();
+
 Page({
   data: {
-    hasData: true,
     dateTab: true,
-    categoryTab: false,
     scrollTop: 0,
     hasFixed:false,
-    showLoadMore: false,
-    showNoMore: false,
-    page: 1,
-    total:70
+    pageNum: 1,
+    pageSize: 12,
+    total: 0,
+    hasMore: false,
+    photoList: [],
+    photoUrlList: []
   },
-  onLoad: function (options) {
+
+  // 加载更多
+  loadPage: function () {
+    let hasMore = this.data.total > (this.data.pageNum - 1) * this.data.pageSize;
+    this.setData({ hasMore: hasMore });
+    // 没有更多的数据
+    if (!hasMore) return;
+
+    // 查询一页数据
     app.service({
       url: '/api/photo/list',
-      data: { pageSize: 12, pageNum: 1 },
+      data: { pageSize: this.data.pageSize, pageNum: this.data.pageNum },
       success: (res) => {
-        let photos = (res.data.photos || []).map(it => { 
-            it && (it.url = config.qiniu.outLink + it.key); 
-            it && (it.uploadedFormatDate = util.formatDate(new Date(it.uploadedDate)));
-            return it 
-          });
+        let results = res.data.photos;
+        if (!results || results.length == 0) return;
+
+        let photos = results.map(it => {
+          it && (it.url = config.qiniu.outLink + it.key);
+          it && (it.uploadedFormatDate = util.formatDate(new Date(it.uploadedDate)));
+          return it
+        });
         this.setData({
-          photoList: util.groupBy((photos || []), 'uploadedFormatDate'),
-          urlLists: (photos || []).map(it => it.url)
+          photoList: this.data.photoList.concat(util.groupBy(photos, 'uploadedFormatDate')),
+          photoUrlList: this.data.photoUrlList.concat(photos.map(it => it.url)),
+          pageNum: this.data.pageNum + 1
         });
       }
     });
+  },
+
+  onLoad: function (options) {
+    // 加载图片总数
+    app.service({
+      url: '/api/photo/count',
+      success: res => {
+        this.setData({ total: res.data.count || 0 });
+        this.loadPage();
+      }
+    });
+
     wx.getSystemInfo({
       success: res => {
         var hight = (res.windowHeight - 48) * (750 / res.windowWidth);
-        this.setData({
-          scrollHeight: hight
-        });
+        this.setData({ scrollHeight: hight });
       }
     })
   },
+
+  // 时间轴和分类列表tab切换
   showDateTab: function () {
-    this.setData({
-      dateTab: true,
-      categoryTab: false
-    })
+    this.setData({ dateTab: true })
   },
   showCategoryTab: function (event) {
-    this.setData({
-      dateTab: false,
-      categoryTab: true,
-    })
+    this.setData({ dateTab: false })
   },
+
+  // 图片预览
   imgPreview: function (event) {
     var src = event.currentTarget.dataset.src;
-    var urlLists = this.data.urlLists;
+    var photoUrlList = this.data.photoUrlList;
     wx.previewImage({
       current: src,
-      urls: urlLists
+      urls: photoUrlList
     })
   },
+
   scroll: function (e) {
-    var that =this;
-    var scrollTop = that.data.scrollTop;
-    that.setData({
-      scrollTop: e.detail.scrollTop
-    })
-    var hasFixed = that.data.hasFixed;
-    if (scrollTop >= 117 && !that.data.categoryTab && that.data.dateTab){
-      that.setData({
-        hasFixed: true
-      })
-    }else{
-      that.setData({
-        hasFixed: false
-      })
-    }
+    var scrollTop = this.data.scrollTop;
+    this.setData({ scrollTop: e.detail.scrollTop });
+    var hasFixed = this.data.hasFixed;
+    this.setData({ hasFixed: scrollTop >= 117 && !this.data.categoryTab && this.data.dateTab });
   },
-  refresh: function (e) {
-    console.log("refresh");
-  },
+
   loadMore: function (e) {
-    console.log("load more");
-    if (this.data.page * 20 > this.data.total) {
-      this.setData({
-        showLoadMore: false,
-        showNoMore: true
-      });
-    } else {
-      var p = this.data.page;
-      p++;
-      this.setData({
-        page: p,
-        showLoadMore: true
-      })
-    }
+    this.loadPage();
   },
+
   toMine: function (event) {
     wx.navigateTo({
       url: "../index/index"
     })
   },
+
   showPhoto: function () {
     wx.showActionSheet({
       itemList: ['拍照', '从相册选择'],
-      success: function (res) {
-      },
-      fail: function (res) {
-      }
+      success: res => { },
+      fail: res => { }
     })
   }
 })

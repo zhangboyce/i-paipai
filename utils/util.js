@@ -1,5 +1,6 @@
 var appConfig = require('../config.js');
-function formatTime(date) {
+
+let __formatDateToArray__ = date => {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
   var day = date.getDate()
@@ -8,32 +9,34 @@ function formatTime(date) {
   var minute = date.getMinutes()
   var second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day, hour, minute, second];
+};
+
+let __formatNumber__ = n => n.toString()[1] ? n : '0' + n
+
+function formatTime(date) {
+  let array = __formatDateToArray__(date);
+  return array.slice(0, 3).map(__formatNumber__).join('-') + ' ' + array.slice(3, 6).map(__formatNumber__).join(':')
 }
 
 function formatDate(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
-
-  return [year, month, day].map(formatNumber).join('-')
+  let array = __formatDateToArray__(date);
+  return array.slice(0, 3).map(__formatNumber__).join('-')
 }
 
-function formatNumber(n) {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+function formatText(date) {
+  let array = __formatDateToArray__(date).slice(0, 3);
+  let days = parseInt((new Date().getTime() - date.getTime()) / 86400000);
+
+  return days == 0 ? '今天' : days == 1 ? '昨天' : days == 2 ? '前天' : array.map(__formatNumber__).join('-');
 }
 
 function groupBy(arr, key) {
-  let result = arr.reduce(function (rv, x) {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
-  }, {});
-
+  let result = arr.reduce((rv, x) => { (rv[x[key]] = rv[x[key]] || []).push(x); return rv; }, {});
   let results = [];
   for (let k in result) {
     results.push({
-      [key]: k,
+      [key]: formatText(new Date(k)),
       data: result[k]
     })
   }
@@ -45,27 +48,4 @@ function trim(str) {
   return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 
-// 提示错误信息  
-function isError(msg, that) {
-  that.setData({
-    showTopTips: true,
-    errorMsg: msg
-  })
-}
-
-// 清空错误信息  
-function clearError(that) {
-  that.setData({
-    showTopTips: false,
-    errorMsg: ""
-  })
-}
-
-module.exports = {
-  formatTime: formatTime,
-  formatDate: formatDate,
-  trim: trim,
-  isError: isError,
-  groupBy: groupBy,
-  clearError: clearError
-}  
+module.exports = { formatTime, formatDate, trim, groupBy };
