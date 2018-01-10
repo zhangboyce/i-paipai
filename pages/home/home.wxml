@@ -32,13 +32,13 @@
 
     <view wx:if="{{dateTab}}" style="margin-bottom:80rpx;">
 
-      <block wx:for="{{photoList}}" wx:for-item="photoListItem" wx:key="key">
+      <block wx:for="{{ photoList }}" wx:for-item="photoListItem" wx:key="key">
         <view class="photo-containder">
-          <text class="date-text">{{photoListItem.uploadDate}}</text>
+          <text class="date-text">{{photoListItem.uploadedFormatDate}}</text>
           <view class="photo-list">
-            <block wx:for="{{photoListItem.data}}" wx:for-item="list" wx:key="key">
+            <block wx:for="{{photoListItem.data}}" wx:for-item="photo" wx:key="key">
               <view class="img-container">
-                <image bindtap="imgPreview" data-src="http://oxrcvtr6x.bkt.clouddn.com/{{list.url}}" lazy-load="true" mode="scaleToFill" src="http://oxrcvtr6x.bkt.clouddn.com/{{list.url}}?imageView2/1/w/300/h/300/q/75"></image>
+                <image bindtap="imgPreview" data-src="{{photo.url}}" lazy-load="true" mode="scaleToFill" src="{{photo.url}}?imageView2/1/w/300/h/300/q/75"></image>
               </view>
             </block>
           </view>
