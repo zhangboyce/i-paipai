@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 var config = require('../../config.js');
 var util = require('../../utils/util.js');
 const app = getApp();
+=======
+// pages/home/home.js
+var photoList = require('../../data/photoInfo-data.js');
+var app = getApp();
+>>>>>>> c388b38ab7f254ba436d3eb2319aa9cc4e20b90e
 Page({
   data: {
     hasData: true,
@@ -14,6 +20,7 @@ Page({
     total:70
   },
   onLoad: function (options) {
+<<<<<<< HEAD
     app.service({
       url: '/api/photo/list',
       data: { pageSize: 12, pageNum: 1 },
@@ -28,6 +35,11 @@ Page({
           urlLists: (photos || []).map(it => it.url)
         });
       },
+=======
+    this.setData({
+      photoList: photoList.photoList,
+      urlLists: photoList.photoListUrl
+>>>>>>> c388b38ab7f254ba436d3eb2319aa9cc4e20b90e
     });
     wx.getSystemInfo({
       success: res => {

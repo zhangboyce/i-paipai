@@ -30,6 +30,7 @@ function groupBy(arr, key) {
     return rv;
   }, {});
 
+<<<<<<< HEAD
   let results = [];
   for (let k in result) {
     results.push({
@@ -38,6 +39,23 @@ function groupBy(arr, key) {
     })
   }
   return results;
+=======
+function http(url, method, data, callBack) {
+  var header = 
+    { 'Content-Type': 'application/x-www-form-urlencoded' }
+  
+  wx.request({
+    url: appConfig.server + url,
+    data: data,
+    method: method,
+   // header:header,
+    success: function (res) {
+      callBack(res.data);
+    },
+    fail: function (error) {
+    }
+  })
+>>>>>>> c388b38ab7f254ba436d3eb2319aa9cc4e20b90e
 }
 
 // 去前后空格  

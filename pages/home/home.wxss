@@ -152,6 +152,8 @@
 }
 
 .icon-home-photo {
-  width: 80rpx;
-  height: 64rpx;
+  /* width: 80rpx;
+  height: 64rpx; */
+  width: 70rpx;
+  height: 65rpx;
 }
