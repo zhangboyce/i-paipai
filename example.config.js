@@ -5,11 +5,6 @@ module.exports = {
     "appSecret": "appSecret"
   },
   "qiniu": {
-    "accessKey": "accessKey",
-    "secretKey": "secretKey",
-    "bucket": "boyce",
-    "zone": "Zone_z0",
     "outLink": "outLink"
   }
 }
-

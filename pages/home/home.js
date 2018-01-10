@@ -1,5 +1,6 @@
-// pages/home/home.js
-var photoList = require('../../data/photoInfo-data.js')
+var config = require('../../config.js');
+var util = require('../../utils/util.js');
+const app = getApp();
 Page({
   data: {
     hasData: true,
@@ -13,18 +14,25 @@ Page({
     total:70
   },
   onLoad: function (options) {
-    wx.request({
-      url: '',
-    })
-    this.setData({
-      photoList: photoList.photoList,
-      urlLists: photoList.photoListUrl
+    app.service({
+      url: '/api/photo/list',
+      data: { pageSize: 12, pageNum: 1 },
+      success: (res) => {
+        let photos = (res.data.photos || []).map(it => { 
+            it && (it.url = config.qiniu.outLink + it.key); 
+            it && (it.uploadedFormatDate = util.formatDate(new Date(it.uploadedDate)));
+            return it 
+          });
+        this.setData({
+          photoList: util.groupBy((photos || []), 'uploadedFormatDate'),
+          urlLists: (photos || []).map(it => it.url)
+        });
+      },
     });
-    var that = this;
     wx.getSystemInfo({
-      success: function (res) {
+      success: res => {
         var hight = (res.windowHeight - 48) * (750 / res.windowWidth);
-        that.setData({
+        this.setData({
           scrollHeight: hight
         });
       }
