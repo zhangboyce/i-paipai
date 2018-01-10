@@ -99,9 +99,39 @@ Page({
 
   showPhoto: function () {
     wx.showActionSheet({
-      itemList: ['拍照', '从相册选择'],
-      success: res => { },
-      fail: res => { }
+      itemList: ['拍照片', '相册照片'],
+      success: (res) => {
+        console.log(res.tapIndex);
+        console.log(this);
+        if (!res.cancel) {
+          if (res.tapIndex == 0) {
+            this.chooseWxImage('camera');
+          } else if (res.tapIndex == 1) {
+            this.chooseWxImage('album');
+          }
+        }
+      },
+      fail: function (res) {
+      }
+    })
+  },
+  chooseWxImage: function (type) {
+    wx.chooseImage({
+      sizeType: ['compressed'],
+      sourceType: [type],
+      success: (res) => {
+        console.log("res:"+res);
+        wx.setStorage({
+          key: "uploadImages",
+          data: res
+        })
+        wx.navigateTo({
+          url: "../photo/photo"
+        })
+
+      }
     })
   }
+
+
 })

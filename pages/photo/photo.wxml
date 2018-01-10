@@ -1,0 +1,40 @@
+<view class="photo-warp">
+  <ul>
+    <li>
+      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.36c28034eb607887d16e6c8edf3c9f4c.jpg'></image>
+    </li>
+
+    <li>
+      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c66c36365a8673c545f985f62a037a1.jpg'></image>
+    </li>
+
+    <li>
+      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.7b4c19015fe3f1527912e531028c4675.jpg'></image>
+    </li>
+
+    <li>
+      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
+    </li>
+
+    <li>
+      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
+    </li>
+
+    <li>
+      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
+    </li>
+
+    <li>
+      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
+    </li>
+
+    <li>
+      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
+    </li>
+
+  </ul>
+  <view class="add-warp">
+    <span class="add-btn"> </span>
+  </view>
+
+</view>
