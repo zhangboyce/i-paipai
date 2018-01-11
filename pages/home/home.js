@@ -1,5 +1,12 @@
 var config = require('../../config.js');
 var util = require('../../utils/util.js');
+var classify = require('../../utils/classify.js');
+let listByLocation = classify.listByLocation;
+if (listByLocation.length > 5){
+  listByLocation = listByLocation.slice(0,4);
+}
+console.log(listByLocation)
+
 const app = getApp();
 
 Page({
@@ -12,7 +19,9 @@ Page({
     total: 0,
     hasMore: false,
     photoList: [],
-    photoUrlList: []
+    photoUrlList: [],
+    listByTag: classify.listByTag,
+    listByLocation: listByLocation
   },
 
   // 加载更多
