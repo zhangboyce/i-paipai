@@ -48,4 +48,39 @@ function trim(str) {
   return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 
-module.exports = { formatTime, formatDate, trim, groupBy };
+// 提示错误信息  
+function isError(msg, that) {
+  that.setData({
+    showTopTips: true,
+    errorMsg: msg
+  })
+}
+
+// 清空错误信息  
+function clearError(that) {
+  that.setData({
+    showTopTips: false,
+    errorMsg: ""
+  })
+}
+
+
+//两个数组合并去重
+function unique(array, array1) {
+  var setObj = new Set(array)
+  for (var i = 0; i < array1.length; i++) {
+    setObj.add(array1[i]);
+  }
+  return Array.from(setObj);
+}
+
+module.exports = {
+  formatTime: formatTime,
+  formatDate: formatDate,
+  trim: trim,
+  isError: isError,
+  groupBy: groupBy,
+  clearError: clearError,
+  unique: unique
+}  
+

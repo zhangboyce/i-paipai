@@ -1,40 +1,50 @@
 <view class="photo-warp">
   <ul>
-    <li>
-      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.36c28034eb607887d16e6c8edf3c9f4c.jpg'></image>
-    </li>
-
-    <li>
-      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c66c36365a8673c545f985f62a037a1.jpg'></image>
-    </li>
-
-    <li>
-      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.7b4c19015fe3f1527912e531028c4675.jpg'></image>
-    </li>
-
-    <li>
-      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
-    </li>
-
-    <li>
-      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
-    </li>
-
-    <li>
-      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
-    </li>
-
-    <li>
-      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
-    </li>
-
-    <li>
-      <image src='http://tmp/wxcffe13d1a047ce99.o6zAJsxXOSe437Vjm_oJxRMfb1-A.8c57b2a302bd81d3dc3be0404ddc6f0b.jpg'></image>
-    </li>
-
+    <block wx:for="{{ uploadImageList }}" wx:for-item="imageItem" wx:key="key">
+      <li>
+        <image catchtap="deleteImage" data-index="{{ index }}" class="close" src='../../images/icon/close.png'></image>
+        <image catchtap="imgPreview" data-src="{{ imageItem }}" class="image" src="{{ imageItem }}"></image>
+      </li>
+    </block>
   </ul>
-  <view class="add-warp">
+
+  <view class="add-warp" catchtap='showPhoto'>
     <span class="add-btn"> </span>
+  </view>
+  <view style='clear:both;'>
+  </view>
+
+  <view class="upload-location">
+    <image class="icon-location" src='../../images/icon/location.png'> </image>
+    <text class="text-loaction">所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置</text>
+    <image class="icon-choose" src='../../images/icon/right.png'> </image>
+  </view>
+
+  <view class="upload-tag">
+    <view>
+      <text class="title-text">标签</text>
+    </view>
+    <span class="tag">标签1</span>
+    <span class="tag">标签2</span>
+    <span class="tag">标签3</span>
+    <span class="tag">标签4</span>
+    <span class="tag">＋新标签</span>
+  </view>
+
+  <view class="upload-tag">
+    <view>
+      <text class="title-text">标签</text>
+    </view>
+    <span class="tag">标签1</span>
+    <span class="tag">标签2</span>
+    <span class="tag">标签3</span>
+    <span class="tag">标签4</span>
+    <image class="icon-open" src='../../images/icon/bottom.png'></image>
+
+  </view>
+
+  <view class="submit-btn">
+    上传
   </view>
 
 </view>

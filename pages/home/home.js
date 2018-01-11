@@ -131,8 +131,8 @@ Page({
       success: (res) => {
         console.log("res:"+res);
         wx.setStorage({
-          key: "uploadImages",
-          data: res
+          key: "uploadImageList",
+          data: res.tempFilePaths
         })
         wx.navigateTo({
           url: "../photo/photo"
