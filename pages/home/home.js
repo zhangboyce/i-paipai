@@ -1,14 +1,7 @@
 var config = require('../../config.js');
 var util = require('../../utils/util.js');
-var classify = require('../../utils/classify.js');
-let listByLocation = classify.listByLocation;
-if (listByLocation.length > 5){
-  listByLocation = listByLocation.slice(0,4);
-}
-console.log(listByLocation)
 
 const app = getApp();
-
 Page({
   data: {
     dateTab: true,
@@ -20,8 +13,7 @@ Page({
     hasMore: false,
     photoList: [],
     photoUrlList: [],
-    listByTag: classify.listByTag,
-    listByLocation: listByLocation
+    categories: {}
   },
 
   // 加载更多
@@ -40,7 +32,6 @@ Page({
         if (!results || results.length == 0) return;
 
         let photos = results.map(it => {
-          it && (it.url = config.qiniu.outLink + it.key);
           it && (it.uploadedFormatDate = util.formatDate(new Date(it.uploadedDate)));
           return it
         });
@@ -76,6 +67,12 @@ Page({
     this.setData({ dateTab: true })
   },
   showCategoryTab: function (event) {
+    app.service({
+      url: '/api/photo/categories',
+      success: res => {
+        this.setData({ categories: res.data || {} })
+      }
+    });
     this.setData({ dateTab: false })
   },
 
@@ -141,6 +138,4 @@ Page({
       }
     })
   }
-
-
 })

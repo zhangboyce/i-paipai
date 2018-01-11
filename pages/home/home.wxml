@@ -48,16 +48,16 @@
       <view class="home-classify">
          <view class="home-classify-unit">
             <view class="home-classify-place">
-              <view class="home-classify-unit-ls" wx:for="{{listByLocation}}">
-                <image src="http://oxrcvtr6x.bkt.clouddn.com/{{item.data[0]}}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
-                <text class="home-classify-unit-txt">{{item.location}}</text>  
+              <view class="home-classify-unit-ls" wx:for="{{ categories.listByLocation }}">
+                <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
+                <text class="home-classify-unit-txt">{{ item.location }}</text>  
               </view>
             </view>
             <text>地点</text>
           </view>
-        <view class="home-classify-all" wx:for="{{listByTag}}">
-            <image src="http://oxrcvtr6x.bkt.clouddn.com/{{item.data[0]}}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
-            <text>{{item.tag}}</text>
+        <view class="home-classify-all" wx:for="{{ categories.listByTag }}">
+            <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
+            <text>{{ item.tag }}</text>
         </view>
       </view>
     </view>
