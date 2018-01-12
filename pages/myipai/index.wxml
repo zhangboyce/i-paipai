@@ -1,4 +1,3 @@
-<!--pages/myipai/myipai.wxml-->
 <view>
   <view class="myipai">
     <image src=''></image>

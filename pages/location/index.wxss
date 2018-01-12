@@ -1,4 +1,3 @@
-/* pages/location/location.wxss */
 .around-list{
 
 }
@@ -27,10 +26,10 @@
    display:none;
 }
 .around-list ul li.active .checked{
-   display: inline-block;
-   width: 40rpx;
-   height: 40rpx;
-    position: absolute;
-    right: 80rpx;
-    top:20rpx;
+  display: inline-block;
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 80rpx;
+  top:20rpx;
 }

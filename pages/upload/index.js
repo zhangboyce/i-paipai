@@ -49,23 +49,6 @@ Page({
     });
   },
 
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
   /**
   * 预览图片
   */
@@ -191,7 +174,7 @@ Page({
    */
   toLocation: function () {
     wx.navigateTo({
-      url: "../location/location?latitude=" + this.data.latitude + "&longitude=" + this.data.longitude
+      url: "../location/index?latitude=" + this.data.latitude + "&longitude=" + this.data.longitude
     })
   }
 

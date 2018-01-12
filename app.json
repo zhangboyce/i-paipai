@@ -1,11 +1,11 @@
 {
   "pages": [
-    "pages/photo/photo",
-    "pages/location/location",
-    "pages/home/home",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/myipai/myipai"
+    "pages/photos/index",
+    "pages/upload/index",
+    "pages/location/index",
+    "pages/logs/index",
+    "pages/myipai/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,53 +1,96 @@
-//index.js
-//获取应用实例
-const app = getApp()
+var config = require('../../config.js');
+var util = require('../../utils/util.js');
+
+const app = getApp();
 Page({
   data: {
-    motto: '关于随手拍',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    dateTab: true,
+    scrollTop: 0,
+    hasFixed:false,
+    categories: {  }
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+  
+  onLoad: function (options) {
+    wx.getSystemInfo({
+      success: res => {
+        var hight = (res.windowHeight - 48) * (750 / res.windowWidth);
+        this.setData({ scrollHeight: hight });
+      }
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+
+  // 时间轴和分类列表tab切换
+  showDateTab: function () {
+    this.setData({ dateTab: true })
+  },
+  showCategoryTab: function (event) {
+    app.service({
+      url: '/api/photo/categories',
+      success: res => {
+        let listByLocation = res.data.listByLocation;
+        listByLocation.push({
+          "location": " ",
+          "data": ["/images/home/icon_nopic.png"]
+        }, {
+            "location": " ",
+            "data": ["/images/home/icon_nopic.png"]
+          }, {
+            "location": " ",
+            "data": ["/images/home/icon_nopic.png"]
+        }, {
+          "location": " ",
+          "data": ["/images/home/icon_nopic.png"]
+        });
+        res.data.listByLocation = listByLocation.slice(0, 4);
+
+        this.setData({ categories: res.data || {} })
+      }
+    });
+    this.setData({ dateTab: false })
+  },
+
+  scroll: function (e) {
+    var scrollTop = this.data.scrollTop;
+    this.setData({ scrollTop: e.detail.scrollTop });
+    var hasFixed = this.data.hasFixed;
+    this.setData({ hasFixed: scrollTop >= 117 && !this.data.categoryTab && this.data.dateTab });
+  },
+
+  toPhotos: function (event) {
+    wx.navigateTo({
+      url: "../photos/index"
+    })
+  },
+
+  showPhoto: function () {
+    wx.showActionSheet({
+      itemList: ['拍照片', '相册照片'],
+      success: (res) => {
+        if (!res.cancel) {
+          if (res.tapIndex == 0) {
+            this.chooseWxImage('camera');
+          } else if (res.tapIndex == 1) {
+            this.chooseWxImage('album');
+          }
+        }
+      },
+      fail: function (res) {
+      }
+    })
+  },
+  chooseWxImage: function (type) {
+    wx.chooseImage({
+      sizeType: ['compressed'],
+      sourceType: [type],
+      success: (res) => {
+        wx.setStorage({
+          key: "uploadImageList",
+          data: res.tempFilePaths
+        })
+        wx.navigateTo({
+          url: "../upload/index"
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
     })
   }
 })
