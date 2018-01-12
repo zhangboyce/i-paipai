@@ -2,7 +2,7 @@
   <ul>
     <block wx:for="{{ uploadImageList }}" wx:for-item="imageItem" wx:key="key">
       <li>
-        <image catchtap="deleteImage" data-index="{{ index }}" class="close" src='../../images/icon/close.png'></image>
+        <image catchtap="deleteImage" data-index="{{ index }}" class="close" src='../../images/icon/icon-close.png'></image>
         <image catchtap="imgPreview" data-src="{{ imageItem }}" class="image" src="{{ imageItem }}"></image>
       </li>
     </block>
@@ -15,9 +15,9 @@
   </view>
 
   <view class="upload-location" catchtap='toLocation'>
-    <image class="icon-location" src='../../images/icon/location.png'> </image>
-    <text class="text-loaction">{{ currentLocation }}</text>
-    <image class="icon-choose" src='../../images/icon/right.png'> </image>
+    <image class="icon-location" src='../../images/icon/icon-location.png'> </image>
+    <text class="text-loaction">{{ locationChoosed }}</text>
+    <image class="icon-choose" src='../../images/icon/icon-right.png'> </image>
   </view>
 
   <view class="upload-tag">
@@ -39,7 +39,7 @@
     <span class="tag">标签2</span>
     <span class="tag">标签3</span>
     <span class="tag">标签4</span>
-    <image class="icon-open" src='../../images/icon/bottom.png'></image>
+    <image class="icon-open" src='../../images/icon/icon-bottom.png'></image>
 
   </view>
 

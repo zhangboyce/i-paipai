@@ -1,2 +1,14 @@
-<!--pages/search/index.wxml-->
 <text>pages/search/index.wxml</text>
+<view>
+  <view class="search-input">
+    <image class="search-img" src="/images/icon/icon-03.png"></image>
+    <input type='text'></input>
+  </view>
+  <view class="search-label">
+    <text>标签:</text>
+    <view><text class="search-label-txt">美女</text></view>
+  </view>
+  <view class="search-site">
+    <text>地点:</text><text class="search-label-txt">上海</text>
+  </view>
+</view>

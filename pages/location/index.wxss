@@ -26,10 +26,11 @@
    display:none;
 }
 .around-list ul li.active .checked{
-  display: inline-block;
-  width: 40rpx;
-  height: 40rpx;
-  position: absolute;
-  right: 80rpx;
-  top:20rpx;
+   display: inline-block;
+   width: 60rpx;
+   height: 60rpx;
+   position: absolute;
+   right: 80rpx;
+   top:20rpx;
+
 }
