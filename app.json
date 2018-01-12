@@ -4,7 +4,8 @@
     "pages/location/location",
     "pages/home/home",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/myipai/myipai"
   ],
   "window": {
     "backgroundTextStyle": "light",

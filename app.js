@@ -38,6 +38,7 @@ App({
             wx.request({
               url: config.server + '/api/user/login/' + res.code,
               success: res => {
+                console.log(res);
                 this.setSession(res.data.sessionId);
                 this.setUserInfo(data.userInfo);
                 this.service({
