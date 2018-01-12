@@ -3,6 +3,7 @@
     "pages/upload/index",
     "pages/index/index",
     "pages/photos/index",
+    "pages/locations/index",
     "pages/search/index",
   
     "pages/location/index",

@@ -1,3 +1,5 @@
 <view>
-  <photo-list />
+  <view class='title'><text>{{ location }}</text></view>
+  <view class='title'><text>{{ tag }}</text></view>
+  <photo-list tag="{{ tag }}" location="{{ location }}"/>
 </view>
