@@ -200,7 +200,7 @@ Page({
    */
   toLocation: function () {
     wx.navigateTo({
-      url: "../location/location?latitude=" + this.data.latitude + "&longitude=" + this.data.longitude
+      url: "../location/index?latitude=" + this.data.latitude + "&longitude=" + this.data.longitude
     })
   }
 

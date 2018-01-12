@@ -14,6 +14,16 @@ Component({
       type: Number,
       value: 9,
       observer: function (newVal, oldVal) { }
+    },
+    tag: {
+      type: String,
+      value: "",
+      observer: function (newVal, oldVal) { }
+    },
+    location: {
+      type: String,
+      value: "",
+      observer: function (newVal, oldVal) { }
     }
   },
 
@@ -28,6 +38,10 @@ Component({
     // 加载图片总数
     app.service({
       url: '/api/photo/count',
+      data: {
+        tag: this.data.tag,
+        location: this.data.location
+      },
       success: res => {
         this.setData({ total: res.data.count || 0 });
         this.__nextPage__();
@@ -49,17 +63,15 @@ Component({
       this.__nextPage__();
     },
 
-    // 加载更多
-    __nextPage__: function () {
-      let hasMore = this.data.total > (this.data.pageNum - 1) * this.data.pageSize;
-      this.setData({ hasMore: hasMore });
-      // 没有更多的数据
-      if (!hasMore) return;
-
-      // 查询一页数据
+    __loadData__: function() {
       app.service({
         url: '/api/photo/list',
-        data: { pageSize: this.data.pageSize, pageNum: this.data.pageNum },
+        data: {
+          pageSize: this.data.pageSize,
+          pageNum: this.data.pageNum,
+          tag: this.data.tag,
+          location: this.data.location
+        },
         success: (res) => {
           let results = res.data.photos;
           if (!results || results.length == 0) return;
@@ -75,6 +87,24 @@ Component({
           });
         }
       });
+    },
+
+    __refresh__: function() {
+      this.setData({
+        photoList: [],
+        photoUrlList: [],
+        pageNum: 1
+      });
+      this.__loadData__();
+    },
+
+    __nextPage__: function () {
+      let hasMore = this.data.total > (this.data.pageNum - 1) * this.data.pageSize;
+      this.setData({ hasMore: hasMore });
+      // 没有更多的数据
+      if (!hasMore) return;
+      
+      this.__loadData__();
     },
   }
 })
