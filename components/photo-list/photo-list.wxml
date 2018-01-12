@@ -1,5 +1,5 @@
 <block>
-  <view><text class="total">{{ "共" + total + "张" }}</text></view>
+  <view class="total"><text>{{ "共" + total + "张" }}</text></view>
   <block wx:for="{{ photoList }}" wx:for-item="photoListItem" wx:key="key">
     <scroll-view class="photo-containder" scroll-y bindscrolltolower="onLoadMore" bindscroll="scroll">
       <text class="date-text">{{ photoListItem.uploadedFormatDate }}</text>

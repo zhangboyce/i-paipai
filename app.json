@@ -3,7 +3,8 @@
     "pages/home/home",
     "pages/photo/photo",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/myipai/myipai"
   ],
   "window": {
     "backgroundTextStyle": "light",

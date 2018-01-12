@@ -2,6 +2,13 @@
   margin-top: 20rpx;
 }
 
+.total {
+  font-size: 26rpx;
+  margin-right:28rpx;
+  text-align: right;
+  margin-top: 20rpx;
+}
+
 .date-text{
   font-size: 26rpx;
   margin-left:28rpx;

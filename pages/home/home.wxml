@@ -3,7 +3,8 @@
   <view class="home">
     <view class="home-banner">
       <image src="/images/home/banner.jpg"></image>
-      <text>我的相册</text>
+      <view><text class="home-banner-txt">我的相册</text><text class="home-banner-time">2016.0908-2018.0102</text></view>
+      <!-- <button bindtap='uploadxxx'>woyaoshangchuan</button> -->
     </view>
 
     <view class="home-sub-bar {{ hasFixed ? 'active' : '' }}">
@@ -23,7 +24,7 @@
     </view>
 
     <view wx:if="{{ dateTab }}" style="margin-bottom:80rpx;">
-      <photo-list bindloadmore="onLoadMore" />
+      <photo-list />
     </view>
 
     <!-- 分类 -->
@@ -31,14 +32,14 @@
       <view class="home-classify">
          <view class="home-classify-unit">
             <view class="home-classify-place">
-              <view class="home-classify-unit-ls" wx:for="{{ categories.listByLocation }}">
+              <view class="home-classify-unit-ls" wx:key="key" wx:for="{{ categories.listByLocation }}">
                 <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
                 <text class="home-classify-unit-txt">{{ item.location }}</text>  
               </view>
             </view>
             <text>地点</text>
           </view>
-        <view class="home-classify-all" wx:for="{{ categories.listByTag }}">
+        <view class="home-classify-all" wx:for="{{ categories.listByTag }}" wx:key="key">
             <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
             <text>{{ item.tag }}</text>
         </view>
