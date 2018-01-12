@@ -56,12 +56,6 @@ Page({
     this.setData({ hasFixed: scrollTop >= 117 && !this.data.categoryTab && this.data.dateTab });
   },
 
-  toPhotos: function (event) {
-    wx.navigateTo({
-      url: "../photos/index"
-    })
-  },
-
   showPhoto: function () {
     wx.showActionSheet({
       itemList: ['拍照片', '相册照片'],

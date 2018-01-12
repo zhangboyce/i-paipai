@@ -1,4 +1,3 @@
-/* pages/search/search.wxss */
 .search-input {
   width: 80%;
   border: 1px solid #ccc;
