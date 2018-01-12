@@ -31,19 +31,21 @@
     <view wx:else>
       <view class="home-classify">
          <view class="home-classify-unit">
+          <navigator url='/pages/locations/index' hover-class='none'>
             <view class="home-classify-place">
               <view class="home-classify-unit-ls" wx:key="key" wx:for="{{ categories.listByLocation }}">
-                <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
+                  <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
                 <text class="home-classify-unit-txt">{{ item.location }}</text>  
               </view>
             </view>
-            <text>地点</text>
+          </navigator>
+          <text>地点</text>
           </view>
         <view class="home-classify-all" wx:for="{{ categories.listByTag }}" wx:key="key">
-          <navigator url='/pages/photos/index' hover-class='none'>
+          <navigator url='/pages/photos/index?tag={{ item.tag }}' hover-class='none'>
             <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
           </navigator>
-            <text>{{ item.tag }}</text>
+          <text>{{ item.tag }}</text>
         </view>
       </view>
     </view>
