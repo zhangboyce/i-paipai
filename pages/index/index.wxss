@@ -17,7 +17,7 @@
 }
 
 .usermotto {
-  margin-top: 800rpx;
+  margin-top: 750rpx;
   font-size: 27rpx;
   color: #999;
 }

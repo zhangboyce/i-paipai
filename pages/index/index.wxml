@@ -7,7 +7,7 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <navigator>
+  <navigator hover-class="none" url="/pages/myipai/myipai">
     <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>
