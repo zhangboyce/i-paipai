@@ -10,7 +10,7 @@ Page({
   data: {
     latitude: 0, //纬度，浮点数，范围为-90~90，负数表示南纬
     longitude: 0, //经度，浮点数，范围为-180~180，负数表示西经
-    currentLocation: "所在位置"  //当前地理位置
+   // currentLocation: "所在位置"  //当前地理位置
   },
 
   /**
@@ -31,6 +31,9 @@ Page({
         this.getLoaction();
       }
     })
+
+
+
 
     /**
      * 获取本地图片缓存列表
@@ -63,6 +66,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
+    wx.getStorage({
+      key: 'locationChoosed',
+      success: res => {
+        this.setData({ locationChoosed: res.data });
+      },
+      fail: () => {
+        this.setData({ locationChoosed: "所在位置" });
+      }
+    });
 
   },
 
@@ -161,10 +174,6 @@ Page({
       get_poi: 1,      //是否返回周边POI列表：
       success: (res) => {
         if (res.status == 0) {
-          // this.setData({
-          //   currentLocation: res.result.address
-          // });
-          //  res.result.ad_info.province
           var poisList = res.result.pois;
           var noLocation = {title:"所在位置"};
           var province = { title: res.result.ad_info.province};
@@ -174,7 +183,7 @@ Page({
             data: poisList
           })
           wx.setStorage({
-            key: "location",
+            key: "locationChoosed",
             data: noLocation.title
           })
         }

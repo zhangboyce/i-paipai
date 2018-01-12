@@ -27,12 +27,11 @@ Page({
     });
 
     wx.getStorage({
-      key: 'location',
+      key: 'locationChoosed',
       success: res => {
         this.setData({ location: res.data });
       },
       fail: () => {
-
       }
     });
 
@@ -59,23 +58,6 @@ Page({
         console.log(res);
       }
     });
-
-    qqMapService.getSuggestion({
-      keyword: '地铁',
-      region:'上海市',
-      success: function (res) {
-        console.log(res);
-      },
-      fail: function (res) {
-        console.log(res);
-      },
-      complete: function (res) {
-        console.log(res);
-      }
-    });
-
-
-
 
   },
 
@@ -149,6 +131,15 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
+  },
+  chooseLocation: function (event){
+    wx.setStorage({
+      key: "locationChoosed",
+      data: event.currentTarget.dataset.checkedlocation
+    })
+    wx.navigateBack({
+      delta: 1
+    })
   }
 
 })

@@ -20,11 +20,11 @@
   <view class="around-list">
     <ul>
       <block wx:for="{{ arroundList }}" wx:for-item="arroundListItem" wx:key="key">
-        <li class="{{ arroundListItem.title == location ?'active':'' }}">
+        <li catchtap="chooseLocation" data-checkedLocation="{{ arroundListItem.title }}" class="{{ arroundListItem.title == location ?'active':'' }}">
           <text class="title-text"> {{ arroundListItem.title }}
                 <text class="address-text"> {{ arroundListItem.address }} </text>
           </text>
-          <image class="checked" src='/images/icon/close.png'></image>
+          <image class="checked" src='/images/icon/icon-check.png'></image>
         </li>
       </block>
     </ul>
