@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/photos/index",
+    "pages/locations/index",
     "pages/search/index",
     "pages/upload/index",
     "pages/location/index",

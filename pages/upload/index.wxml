@@ -20,27 +20,26 @@
     <image class="icon-choose" src='../../images/icon/icon-right.png'> </image>
   </view>
 
-  <view class="upload-tag">
+  <view class="upload-tag" wx:if="{{ showTagListAll.length < 5 }}">
     <view>
-      <text class="title-text">标签</text>
+      <text class="title-text">标签1</text>
     </view>
-    <span class="tag">标签1</span>
-    <span class="tag">标签2</span>
-    <span class="tag">标签3</span>
-    <span class="tag">标签4</span>
+    <block wx:for="{{ tagList }}" wx:for-item="tagItem" wx:key="key">
+      <span class="tag"> {{ tagItem }} </span>
+    </block>
     <span class="tag">＋新标签</span>
   </view>
 
-  <view class="upload-tag">
+  <view class="upload-tag" wx:if="{{ showTagListAll.length > 4  }}">
     <view>
-      <text class="title-text">标签</text>
+      <text class="title-text">标签2</text>
     </view>
-    <span class="tag">标签1</span>
-    <span class="tag">标签2</span>
-    <span class="tag">标签3</span>
-    <span class="tag">标签4</span>
-    <image class="icon-open" src='../../images/icon/icon-bottom.png'></image>
-
+    <block wx:for="{{ tagList }}" wx:for-item="tagItem" wx:key="key">
+      <span class="tag {{ chooseTagResult.indexOf(tagItem) !=-1 ?'':'active ' }}"  data-tag="{{ tagItem }}" catchtap="chooseTag"> {{ tagItem }} </span>
+    </block>
+    <span wx:if="{{ !showAddTagButton  }}" class="tag">＋新标签</span>
+    <image catchtap='showAllTag' wx:if="{{ showAddTagButton  }}" class="icon-open" src='../../images/icon/icon-bottom.png'></image>
+    <image catchtap='pickAllTag' wx:else class="icon-open" src='../../images/icon/icon-top.png'></image>
   </view>
 
   <view class="submit-btn">

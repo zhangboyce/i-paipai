@@ -8,9 +8,13 @@ Page({
    *   VPWBZ-ETKRP-B75D5-LO3GI-W4HYQ-RCFLH
    */
   data: {
+    uploadImageList: [],
     latitude: 0, //纬度，浮点数，范围为-90~90，负数表示南纬
     longitude: 0, //经度，浮点数，范围为-180~180，负数表示西经
-   // currentLocation: "所在位置"  //当前地理位置
+    tagList: ["风景","人物","地理","人文","建筑","文化","动物","自然"],
+    showAddTagButton: true,
+    chooseTagResult: [],
+    //tagList:["风景","人物","地理"]
   },
 
   /**
@@ -31,9 +35,15 @@ Page({
         this.getLoaction();
       }
     })
-
-
-
+    
+    /**
+     * 清除本地位置缓存
+     */
+    wx.removeStorage({
+      key: 'locationChoosed',
+      success: function (res) {
+      }
+    })
 
     /**
      * 获取本地图片缓存列表
@@ -50,23 +60,37 @@ Page({
       fail: () => {
       }
     });
-  },
 
+   // this.data.tagList
+    if (this.data.tagList.length>4){
+      this.setData({
+        showTagListAll: this.data.tagList
+      });
+      this.setData({
+        tagList: this.data.tagList.splice(0, 4)
+      });
+     // console.log(this.data.tagList);
+    }else{
+      this.setData({
+        showTagListAll: this.data.tagList
+      });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
-
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      tagList: this.data.tagList
+    });
     wx.getStorage({
       key: 'locationChoosed',
       success: res => {
@@ -76,7 +100,6 @@ Page({
         this.setData({ locationChoosed: "所在位置" });
       }
     });
-
   },
 
   /**
@@ -175,8 +198,8 @@ Page({
       success: (res) => {
         if (res.status == 0) {
           var poisList = res.result.pois;
-          var noLocation = {title:"所在位置"};
-          var province = { title: res.result.ad_info.province};
+          var noLocation = { title: "所在位置" };
+          var province = { title: res.result.ad_info.province };
           poisList.unshift(noLocation, province);
           wx.setStorage({
             key: "pois",
@@ -200,8 +223,43 @@ Page({
    */
   toLocation: function () {
     wx.navigateTo({
-      url: "../location/index?latitude=" + this.data.latitude + "&longitude=" + this.data.longitude
+      url: "../location/index"
     })
+  },
+   /**
+   * 点击后，展示用户所有标签
+   */
+  showAllTag: function () {
+    console.log(this.data.tagList);
+    this.setData({
+      tagList: this.data.showTagListAll,
+      showAddTagButton:false
+    });
+  },
+
+  /**
+   * 收缩标签
+   */
+  pickAllTag: function (){
+    this.setData({
+      tagList: this.data.tagList.splice(0, 4),
+      showAddTagButton: true
+    });
+  },
+  chooseTag: function (event){
+      console.log("event:"+event);
+      var checkedTag = event.currentTarget.dataset.tag;
+
+      if (this.data.chooseTagResult.toString().indexOf(checkedTag) != -1) {
+        let index = this.data.chooseTagResult.findIndex(it => it == checkedTag);
+         this.dara.chooseTagResult.splice(index, 1);
+      } else {
+        this.data.chooseTagResult.push(checkedTag);
+        this.setData({
+          chooseTagResult: this.data.chooseTagResult,
+        });
+      }
+
   }
 
 })

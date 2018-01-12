@@ -7,23 +7,19 @@ Component({
   properties: {
     pageNum: { 
       type: Number, 
-      value: 1, 
-      observer: function (newVal, oldVal) { } 
+      value: 1 
     },
     pageSize: {
       type: Number,
-      value: 9,
-      observer: function (newVal, oldVal) { }
+      value: 9
     },
     tag: {
       type: String,
-      value: "",
-      observer: function (newVal, oldVal) { }
+      value: ""
     },
     location: {
       type: String,
-      value: "",
-      observer: function (newVal, oldVal) { }
+      value: ""
     }
   },
 
@@ -34,19 +30,8 @@ Component({
     photoUrlList: []
   }, 
 
-  attached: function () {
-    // 加载图片总数
-    app.service({
-      url: '/api/photo/count',
-      data: {
-        tag: this.data.tag,
-        location: this.data.location
-      },
-      success: res => {
-        this.setData({ total: res.data.count || 0 });
-        this.__nextPage__();
-      }
-    });
+  ready: function () { 
+    this.flush();
   },
 
   methods: {
@@ -61,6 +46,21 @@ Component({
 
     onLoadMore: function() {
       this.__nextPage__();
+    },
+
+    flush: function() {
+      console.log(this.data);
+      app.service({
+        url: '/api/photo/count',
+        data: {
+          tag: this.data.tag,
+          location: this.data.location
+        },
+        success: res => {
+          this.setData({ total: res.data.count || 0 });
+          this.__refresh__();
+        }
+      });
     },
 
     __loadData__: function() {
@@ -101,7 +101,6 @@ Component({
     __nextPage__: function () {
       let hasMore = this.data.total > (this.data.pageNum - 1) * this.data.pageSize;
       this.setData({ hasMore: hasMore });
-      // 没有更多的数据
       if (!hasMore) return;
       
       this.__loadData__();
