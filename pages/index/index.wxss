@@ -178,3 +178,8 @@
 .home-classify {
   margin-top: 80rpx;
 }
+
+.home .nav {
+  display: inline-block;
+  float: right;
+}

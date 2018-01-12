@@ -18,7 +18,9 @@
         <image class="icon-category" catchtap="showCategoryTab" src='/images/icon/icon-01.png'></image>
         <text class="text-category active" catchtap="showCategoryTab">分类</text>
       </block>
-      <image class="icon-search" src="/images/icon/icon-03.png"></image>
+      <navigator url='/pages/search/index' hover-class='none' class='nav'>
+        <image class="icon-search" src="/images/icon/icon-03.png"></image>
+      </navigator>
     </view>
 
     <view wx:if="{{ dateTab }}" style="margin-bottom:80rpx;">
@@ -38,7 +40,9 @@
             <text>地点</text>
           </view>
         <view class="home-classify-all" wx:for="{{ categories.listByTag }}" wx:key="key">
-            <image bindtap='toPhotos' src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
+          <navigator url='/pages/photos/index' hover-class='none'>
+            <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
+          </navigator>
             <text>{{ item.tag }}</text>
         </view>
       </view>
