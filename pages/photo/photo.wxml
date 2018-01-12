@@ -8,15 +8,15 @@
     </block>
   </ul>
 
-  <view class="add-warp" catchtap='showPhoto'>
+  <view class="add-warp" catchtap='showPhoto' wx:if="{{ uploadImageList.length < 9 }}" >
     <span class="add-btn"> </span>
   </view>
   <view style='clear:both;'>
   </view>
 
-  <view class="upload-location">
+  <view class="upload-location" catchtap='toLocation'>
     <image class="icon-location" src='../../images/icon/location.png'> </image>
-    <text class="text-loaction">所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置所在地理位置</text>
+    <text class="text-loaction">{{ currentLocation }}</text>
     <image class="icon-choose" src='../../images/icon/right.png'> </image>
   </view>
 

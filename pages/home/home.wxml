@@ -1,5 +1,5 @@
 <!--pages/home/home.wxml-->
-<scroll-view scroll-y style="height:{{ scrollHeight }}rpx" bindscrolltoupper="refresh" bindscrolltolower="loadMore" bindscroll="scroll">
+<scroll-view scroll-y style="height:{{ scrollHeight }}rpx" bindscroll="scroll">
   <view class="home">
     <view class="home-banner">
       <image src="/images/home/banner.jpg"></image>
@@ -23,25 +23,8 @@
       <image class="icon-search" src="/images/icon/icon-03.png"></image>
     </view>
 
-    
     <view wx:if="{{ dateTab }}" style="margin-bottom:80rpx;">
-      <view class="total"><text class="">{{ "共" + total + "张" }}</text></view>
-      <block wx:for="{{ photoList }}" wx:for-item="photoListItem" wx:key="key">
-        <view class="photo-containder">
-          <text class="date-text">{{ photoListItem.uploadedFormatDate }}</text>
-          <view class="photo-list">
-            <block wx:for="{{ photoListItem.data }}" wx:for-item="photo" wx:key="key">
-              <view class="img-container">
-                <image bindtap="imgPreview" data-src="{{ photo.url }}" lazy-load="true" mode="scaleToFill" src="{{ photo.url }}?imageView2/1/w/300/h/300/q/75"></image>
-              </view>
-            </block>
-          </view>
-        </view>
-      </block>
-      <view wx:if="{{ total == 0 }}" class="no-content">
-        <image src="/images/home/no-image.png"></image>
-        <text>暂无照片</text>
-      </view>
+      <photo-list />
     </view>
 
     <!-- 分类 -->
