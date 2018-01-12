@@ -18,7 +18,7 @@
 
 
   <view class="around-list">
-    <ul>
+    <ul wx:if="{{ arroundList.length > 0 }}">
       <block wx:for="{{ arroundList }}" wx:for-item="arroundListItem" wx:key="key">
         <li catchtap="chooseLocation" data-checkedLocation="{{ arroundListItem.title }}" class="{{ arroundListItem.title == location ?'active':'' }}">
           <text class="title-text"> {{ arroundListItem.title }}
@@ -28,34 +28,10 @@
         </li>
       </block>
     </ul>
+    <block wx:else>
+      <text> 没有结果 </text>
+    </block>
+
   </view>
-
-  <!-- <block wx:for="{{ photoList }}" wx:for-item="photoListItem" wx:key="key">
-     
-     </block> -->
-
-  <!-- <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">
-        <view>实时搜索文本</view>
-      </view>
-    </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">
-        <view>实时搜索文本</view>
-      </view>
-    </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">
-        <view>实时搜索文本</view>
-      </view>
-    </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">
-        <view>实时搜索文本</view>
-      </view>
-    </navigator>
-  </view> -->
-
 
 </view>
