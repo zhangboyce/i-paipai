@@ -49,6 +49,13 @@ Page({
     this.setData({ dateTab: false })
   },
 
+  toMine: function () {
+    wx.navigateTo({
+      url: '/pages/user/index',
+      
+    })
+  },
+
   scroll: function (e) {
     var scrollTop = this.data.scrollTop;
     this.setData({ scrollTop: e.detail.scrollTop });

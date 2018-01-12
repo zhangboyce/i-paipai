@@ -1,6 +1,6 @@
 .search-input {
   width: 80%;
-  border: 1px solid #ccc;
+  border: 1rpx solid #ccc;
   border-radius: 20rpx;
   margin: auto;
   margin-top: 20rpx;
@@ -15,21 +15,4 @@
   top: 20rpx;
   left: 15rpx;
 }
-.search-label {
-  width: 85%;
-  margin: auto;
-  margin-bottom: 30rpx;
-  font-size: 30rpx
-}
-.search-site {
-  width: 85%;
-  margin: auto;
-  font-size: 30rpx;
-}
-.search-label-txt {
-  border: 1px solid #333;
-  border-radius: 20rpx;
-  padding: 5rpx 15rpx;
-  font-size: 26rpx;
-  margin-left: 25rpx;
-}
+
