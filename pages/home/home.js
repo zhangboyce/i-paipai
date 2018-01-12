@@ -101,8 +101,6 @@ Page({
     wx.showActionSheet({
       itemList: ['拍照片', '相册照片'],
       success: (res) => {
-        console.log(res.tapIndex);
-        console.log(this);
         if (!res.cancel) {
           if (res.tapIndex == 0) {
             this.chooseWxImage('camera');
@@ -120,7 +118,6 @@ Page({
       sizeType: ['compressed'],
       sourceType: [type],
       success: (res) => {
-        console.log("res:"+res);
         wx.setStorage({
           key: "uploadImageList",
           data: res.tempFilePaths
@@ -128,7 +125,6 @@ Page({
         wx.navigateTo({
           url: "../photo/photo"
         })
-
       }
     })
   }
