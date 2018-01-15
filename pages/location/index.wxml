@@ -19,7 +19,7 @@
     <view class="around-list">
       <ul wx:if="{{ arroundList.length > 0 }}">
         <block wx:for="{{ arroundList }}" wx:for-item="arroundListItem" wx:key="key">
-          <li catchtap="chooseLocation" data-checkedLocation="{{ arroundListItem.title }}" class="{{ arroundListItem.title == location ?'active':'' }}">
+          <li catchtap="chooseLocation" data-checkedlocation="{{ arroundListItem }}" class="{{ arroundListItem.title == location ?'active':'' }}">
             <text class="title-text"> {{ arroundListItem.title }}
                 <text class="address-text"> {{ arroundListItem.address }} </text>
             </text>
@@ -34,7 +34,7 @@
 
   </scroll-view>
 
-  <view hidden="{{ !hasMore }}" class="weui-loadmore">
+  <view hidden="{{ !(total > (page_index - 1) * page_size) }}" class="weui-loadmore">
     <view class="weui-loading" />
     <view class="weui-loadmore__tips">正在加载...</view>
   </view>

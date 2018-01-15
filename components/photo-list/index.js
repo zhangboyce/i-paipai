@@ -11,7 +11,7 @@ Component({
     },
     pageSize: {
       type: Number,
-      value: 9
+      value: 999999
     },
     tag: {
       type: String,
@@ -24,6 +24,7 @@ Component({
   },
 
   data: {
+    scrollHeight: 0,
     total: 0,
     hasMore: false,
     photoList: [],
@@ -31,6 +32,13 @@ Component({
   }, 
 
   ready: function () { 
+    wx.getSystemInfo({
+      success: res => {
+        var hight = (res.windowHeight - 48) * (750 / res.windowWidth);
+        this.setData({ scrollHeight: hight });
+      }
+    })
+
     this.flush();
   },
 
@@ -45,6 +53,7 @@ Component({
     },
 
     onLoadMore: function() {
+      console.log('laod more');
       this.__nextPage__();
     },
 
@@ -81,7 +90,7 @@ Component({
             return it
           });
           this.setData({
-            photoList: this.data.photoList.concat(util.groupBy(photos, 'uploadedFormatDate')),
+            photoList: this.data.photoList.concat(util.groupBy(photos, 'uploadedFormatDate')).sort((it1, it2) => it1.uploadedFormatDate - it2.uploadedFormatDate),
             photoUrlList: this.data.photoUrlList.concat(photos.map(it => it.url)),
             pageNum: this.data.pageNum + 1
           });
