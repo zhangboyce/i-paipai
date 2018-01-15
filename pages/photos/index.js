@@ -5,12 +5,14 @@ Page({
     this.setData({ tag: options.tag || '', location: options.location || '' })
   },
   closeInput: function (){
-    console.log("close");
-    wx.navigateBack({
-      delta: 1
+    wx.navigateTo({
+      url: '/pages/search/index',
     })
   },
   reloadInput: function (){
       console.log("reload");
+      wx.navigateTo({
+        url: "/pages/search/index?location=" + this.data.location+"&tag="+this.data.tag,
+      })
   }
 })

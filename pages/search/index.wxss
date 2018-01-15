@@ -27,6 +27,7 @@
   border-bottom: 1px solid #efefef;
   margin-left:48rpx;
   margin-right: 48rpx;
+  padding:18rpx 0;
 }
 .suggest-img{
     height: 44rpx;
