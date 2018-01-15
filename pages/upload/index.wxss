@@ -107,6 +107,11 @@
   padding: 0 20rpx;
 }
 
+.upload-tag .tag.active {
+  background-color: #8cc252;
+  color: #fff;
+}
+
 .upload-tag .icon-open {
   width: 32rpx;
   height: 32rpx;

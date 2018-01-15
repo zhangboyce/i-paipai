@@ -2,7 +2,10 @@
   <ul>
     <block wx:for="{{ uploadImageList }}" wx:for-item="imageItem" wx:key="key">
       <li>
-        <image catchtap="deleteImage" data-index="{{ index }}" class="close" src='../../images/icon/icon-close.png'></image>
+        <block wx:if="{{ uploadProgress[index] != 100 }}">
+          <image catchtap="deleteImage" data-index="{{ index }}" class="close" src='../../images/icon/icon-close.png'></image>
+        </block>
+        <progress percent="{{ uploadProgress[index] }}" color='#8cc252'></progress>
         <image catchtap="imgPreview" data-src="{{ imageItem }}" class="image" src="{{ imageItem }}"></image>
       </li>
     </block>
@@ -16,34 +19,20 @@
 
   <view class="upload-location" catchtap='toLocation'>
     <image class="icon-location" src='../../images/icon/icon-location.png'> </image>
-    <text class="text-loaction">{{ locationChoosed }}</text>
+    <text class="text-loaction">{{ checkedLocation.title }}</text>
     <image class="icon-choose" src='../../images/icon/icon-right.png'> </image>
   </view>
 
-  <view class="upload-tag" wx:if="{{ showTagListAll.length < 5 }}">
-    <view>
-      <text class="title-text">标签1</text>
-    </view>
-    <block wx:for="{{ tagList }}" wx:for-item="tagItem" wx:key="key">
-      <span class="tag"> {{ tagItem }} </span>
+  <view class="upload-tag">
+    <block wx:for="{{ showTagList }}" wx:for-item="tagItem" wx:key="key">
+      <span catchtap="onClickTag" data-name="{{ tagItem.name }}" class="tag {{ tagItem.selected ?'active':''}}"> {{ tagItem.name }}</span>
     </block>
-    <span class="tag">＋新标签</span>
-  </view>
-
-  <view class="upload-tag" wx:if="{{ showTagListAll.length > 4  }}">
-    <view>
-      <text class="title-text">标签2</text>
-    </view>
-    <block wx:for="{{ tagList }}" wx:for-item="tagItem" wx:key="key">
-      <span class="tag {{ chooseTagResult.indexOf(tagItem) !=-1 ?'':'active ' }}"  data-tag="{{ tagItem }}" catchtap="chooseTag"> {{ tagItem }} </span>
+    <block wx:if="{{ tagExpand || tagList.length <= 4 }}">
+      <span catchtap="onAddTag" class="tag">＋新标签</span>
     </block>
-    <span wx:if="{{ !showAddTagButton  }}" class="tag">＋新标签</span>
-    <image catchtap='showAllTag' wx:if="{{ showAddTagButton  }}" class="icon-open" src='../../images/icon/icon-bottom.png'></image>
-    <image catchtap='pickAllTag' wx:else class="icon-open" src='../../images/icon/icon-top.png'></image>
+    <image catchtap='onChangeTagExpand' wx:if="{{ !tagExpand && tagList.length > 4 }}" class="icon-open" src='../../images/icon/icon-bottom.png'></image>
+    <image catchtap='onChangeTagExpand' wx:if="{{ tagExpand }}" class="icon-open" src='../../images/icon/icon-top.png'></image>
   </view>
 
-  <view class="submit-btn">
-    上传
-  </view>
-
+  <view catchtap="onUpload" class="submit-btn">上传</view>
 </view>

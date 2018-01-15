@@ -1,110 +1,52 @@
 // pages/photo/photo.js
 var util = require('../../utils/util.js');
 var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js');
-Page({
+let config = require('../../config.js');
+let app = getApp();
 
-  /**
-   * 页面的初始数据
-   *   VPWBZ-ETKRP-B75D5-LO3GI-W4HYQ-RCFLH
-   */
+Page({
   data: {
     uploadImageList: [],
-    latitude: 0, //纬度，浮点数，范围为-90~90，负数表示南纬
-    longitude: 0, //经度，浮点数，范围为-180~180，负数表示西经
-    tagList: ["风景","人物","地理","人文","建筑","文化","动物","自然"],
-    showAddTagButton: true,
-    chooseTagResult: [],
-    //tagList:["风景","人物","地理"]
+    uploadProgress: {  },
+    tagList: [],
+    showTagList: [],
+    tagExpand: false,
+    checkedLocation: { title: "所在位置" },
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
-    /**
-     * 获取当前位置的纬度，经度
-     */
     wx.getLocation({
       type: 'wgs84',
       success: (res) => {
-        this.setData({
-          latitude: res.latitude,
-          longitude: res.longitude
-        });
-        this.getLoaction();
-      }
-    })
-    
-    /**
-     * 清除本地位置缓存
-     */
-    wx.removeStorage({
-      key: 'locationChoosed',
-      success: function (res) {
+        this.getLoaction(res.latitude, res.longitude);
       }
     })
 
-    /**
-     * 获取本地图片缓存列表
-     */
     wx.getStorage({
       key: 'uploadImageList',
       success: res => {
-        if (res.data.length > 0) {
-          this.setData({
-            uploadImageList: res.data
-          });
-        }
-      },
-      fail: () => {
+        this.setData({ uploadImageList: res.data || [] });
       }
     });
 
-   // this.data.tagList
-    if (this.data.tagList.length>4){
-      this.setData({
-        showTagListAll: this.data.tagList
-      });
-      this.setData({
-        tagList: this.data.tagList.splice(0, 4)
-      });
-     // console.log(this.data.tagList);
-    }else{
-      this.setData({
-        showTagListAll: this.data.tagList
-      });
-    }
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    this.setData({
-      tagList: this.data.tagList
-    });
-    wx.getStorage({
-      key: 'locationChoosed',
+    app.service({
+      url: '/api/photo/tags',
       success: res => {
-        this.setData({ locationChoosed: res.data });
-      },
-      fail: () => {
-        this.setData({ locationChoosed: "所在位置" });
+        this.setData({ tagList: (res.data.tags || []).map(it => { return { name: it, selected: false } }) });
+        this.setData({ showTagList: this.data.tagExpand ? this.data.tagList : this.data.tagList.slice(0, 4) });
+      }
+    })
+  },
+
+  onShow: function () {
+    wx.getStorage({
+      key: 'checkedLocation',
+      success: res => {
+        this.setData({ checkedLocation: res.data });
       }
     });
   },
 
-  /**
-  * 预览图片
-  */
   imgPreview: function (event) {
     var src = event.currentTarget.dataset.src;
     var urlList = this.data.uploadImageList;
@@ -114,9 +56,6 @@ Page({
     })
   },
 
-  /**
-   * 删除图片
-   */
   deleteImage: function (event) {
     wx.showModal({
       title: '',
@@ -125,22 +64,16 @@ Page({
         if (res.confirm) {
           var imageIndex = event.currentTarget.dataset.index;
           this.data.uploadImageList.splice(imageIndex, 1);
-          this.setData({
-            uploadImageList: this.data.uploadImageList
-          });
+          this.setData({ uploadImageList: this.data.uploadImageList });
           wx.setStorage({
             key: "uploadImageList",
             data: this.data.uploadImageList
           })
-        } else if (res.cancel) {
         }
       }
     })
   },
 
-  /**
-    * 添加图片－－选择添加图片方式
-    */
   showPhoto: function () {
     wx.showActionSheet({
       itemList: ['拍照片', '相册照片'],
@@ -152,46 +85,31 @@ Page({
             this.chooseWxImage('album');
           }
         }
-      },
-      fail: function (res) {
       }
     })
   },
 
-  /**
-  * 添加图片 添加图片后结果处理，最多9张，截取前9张
-  */
   chooseWxImage: function (type) {
     wx.chooseImage({
       sizeType: ['compressed'],
+      count: 9 - this.data.uploadImageList.length,
       sourceType: [type],
       success: (res) => {
-        var mergeImageArr = util.unique(this.data.uploadImageList, res.tempFilePaths);
-        if (mergeImageArr.length > 9) {
-          mergeImageArr = mergeImageArr.splice(0, 9);
-        }
-        this.setData({
-          uploadImageList: mergeImageArr
-        });
+        this.setData({ uploadImageList: this.data.uploadImageList.concat(res.tempFilePaths)});
         wx.setStorage({
           key: "uploadImageList",
-          data: mergeImageArr
+          data: this.data.uploadImageList
         })
       }
     })
   },
 
-  /**
-  * 获取当前地理位置
-  */
-  getLoaction: function () {
-    var qqMapService = new QQMapWX({
-      key: 'VPWBZ-ETKRP-B75D5-LO3GI-W4HYQ-RCFLH'
-    });
+  getLoaction: function (latitude, longitude) {
+    var qqMapService = new QQMapWX({ key: config.qqMapServiceKey });
     qqMapService.reverseGeocoder({
       location: {
-        latitude: this.data.latitude,
-        longitude: this.data.longitude
+        latitude: latitude,
+        longitude: longitude
       },
       coord_type: 5,   //5 [默认]腾讯、google、高德坐标
       get_poi: 1,      //是否返回周边POI列表：
@@ -206,60 +124,73 @@ Page({
             data: poisList
           })
           wx.setStorage({
-            key: "locationChoosed",
-            data: noLocation.title
+            key: "checkedLocation",
+            data: noLocation
           })
         }
-      },
-      fail: function (res) {
-      },
-      complete: function (res) {
       }
     });
   },
 
-  /**
-   * 跳转页面到 地理位置列表和搜索页面
-   */
   toLocation: function () {
     wx.navigateTo({
       url: "../location/index"
     })
   },
-   /**
-   * 点击后，展示用户所有标签
-   */
-  showAllTag: function () {
-    console.log(this.data.tagList);
-    this.setData({
-      tagList: this.data.showTagListAll,
-      showAddTagButton:false
-    });
+   
+  onChangeTagExpand: function () {
+    this.setData({ tagExpand: !this.data.tagExpand });
+    this.setData({ showTagList: this.data.tagExpand ? this.data.tagList : this.data.tagList.slice(0, 4) });
   },
 
-  /**
-   * 收缩标签
-   */
-  pickAllTag: function (){
-    this.setData({
-      tagList: this.data.tagList.splice(0, 4),
-      showAddTagButton: true
-    });
+  onClickTag: function (event){
+    let tagName = event.currentTarget.dataset.name;
+    let index = this.data.tagList.findIndex(it => it.name == tagName);
+    this.data.tagList[index].selected = !this.data.tagList[index].selected;
+    this.setData({ tagList: this.data.tagList });
+
+    this.setData({ showTagList: this.data.tagExpand ? this.data.tagList : this.data.tagList.slice(0, 4) });
   },
-  chooseTag: function (event){
-      console.log("event:"+event);
-      var checkedTag = event.currentTarget.dataset.tag;
 
-      if (this.data.chooseTagResult.toString().indexOf(checkedTag) != -1) {
-        let index = this.data.chooseTagResult.findIndex(it => it == checkedTag);
-         this.dara.chooseTagResult.splice(index, 1);
-      } else {
-        this.data.chooseTagResult.push(checkedTag);
-        this.setData({
-          chooseTagResult: this.data.chooseTagResult,
-        });
-      }
+  onAddTag: function (event) {
+    
+  },
 
+  onUpload: function() {
+    if (this.data.uploadImageList.length == 0) return;
+    
+    let uploaded = 0;
+    let uploadProgress = {  };
+
+    this.data.uploadImageList.forEach((it, index) => {
+      let uploadTask = wx.uploadFile({
+        url: config.server + '/api/photo/upload', 
+        header: { sessionId: app.globalData.sessionId },
+        filePath: it,
+        name: 'file',
+        formData: {
+          'tags': this.data.tagList.map(it => it.selected ? it.name : '').filter(it => it).join(','),
+          'location': ((this.data.checkedLocation.ad_info || {}).province) || '',
+          'address': this.data.checkedLocation.address
+        },
+        success: res => {
+          uploaded ++;
+          if (uploaded == this.data.uploadImageList.length) {
+            wx.removeStorageSync("pois")
+            wx.removeStorageSync("checkedLocation")
+            wx.removeStorageSync("uploadImageList")
+
+            wx.navigateTo({
+              url: "../index/index"
+            })
+          }
+        }
+      })
+
+      uploadTask.onProgressUpdate((res) => {
+        uploadProgress[index] = res.progress;
+        this.setData({ uploadProgress: uploadProgress })
+      })
+    });
   }
-
 })

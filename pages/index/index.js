@@ -28,21 +28,13 @@ Page({
       url: '/api/photo/categories',
       success: res => {
         let listByLocation = res.data.listByLocation;
-        listByLocation.push({
-          "location": " ",
-          "data": ["/images/home/icon_nopic.png"]
-        }, {
+        [1,2,3,4].forEach(it => {
+          listByLocation.push({
             "location": " ",
             "data": ["/images/home/icon_nopic.png"]
-          }, {
-            "location": " ",
-            "data": ["/images/home/icon_nopic.png"]
-        }, {
-          "location": " ",
-          "data": ["/images/home/icon_nopic.png"]
+          });
         });
         res.data.listByLocation = listByLocation.slice(0, 4);
-
         this.setData({ categories: res.data || {} })
       }
     });
