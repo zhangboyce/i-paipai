@@ -1,8 +1,24 @@
 <view>
   <view class="search-input">
     <image class="search-img" src="/images/icon/icon-03.png"></image>
-    <input type='text'></input>
+    <input type='text' value="{{ inputValue }}" bindfocus="inputFocus" bindinput="inputTyping" auto-focus></input>
   </view>
-  <search items="{{ tags }}" label="标签" url="/pages/photos/index?tag="/>
-  <search items="{{ locations }}" label="地点" url="/pages/photos/index?location="/>
+
+  <block wx:if="{{ showMainWords }}">
+    <search items="{{ tags }}" label="标签" url="/pages/photos/index?tag="/>
+    <search items="{{ locations }}" label="地点" url="/pages/photos/index?location="/>
+  </block>
+
+  <view class="suggest-warp" wx:if="{{ !showMainWords }}">
+    <block  wx:key="key" wx:for="{{ suggestList }}" >
+      <navigator hover-class="none" url='/pages/photos/index?tag= "{{ item }}"'>
+        <view class="suggest-list"> 
+            <image class="suggest-img" src="/images/icon/icon-time.png"></image>
+            <text class="suggest-text">
+                <text>{{ item }}</text>
+            </text>
+        </view>
+      </navigator>
+    </block>
+  </view>
 </view>
