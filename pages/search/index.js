@@ -19,11 +19,12 @@ Page({
         showMainWords: this.data.inputValue
       })
   },
+ 
   /**
    * input 获取焦点
    */
   inputFocus: function() {
-   
+    console.log(app);
   },
   /**
    * input 获取输入内容
