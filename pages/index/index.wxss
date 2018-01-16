@@ -154,6 +154,7 @@
   box-sizing: border-box;
   text-align: center;
   height: 100rpx;
+  position: relative;
   /* margin-bottom: -8rpx; */
 }
 .home-classify-unit-ls image{
@@ -164,13 +165,16 @@
   border-radius: 5rpx; 
 }
 .home-classify-place .home-classify-unit-txt {
+  position: absolute;
   color: #fff;
-  font-weight: 700;
-  font-size: 25rpx;
-  margin-top: -60rpx;
-  float: left;
-  margin-left: 30%;
-  transform: translate(0,0);
+  top:0;
+  left:0;
+  display:inline-block;
+  width:96%;
+  text-align:center;
+  line-height:70rpx;
+  font-size:24rpx;
+
 }
 .home-classify-place {
   width: 100%;
