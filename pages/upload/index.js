@@ -164,7 +164,7 @@ Page({
   },
 
   onInputTag: function(e) {
-    this.setData({ newTag: e.detail.value })
+    this.setData({ newTag: e.detail.value.trim() })
   },
 
   onCancelAddTagModal: function() {
@@ -172,10 +172,15 @@ Page({
   },
 
   onConfirmAddTagModal: function () {
-    this.data.tagList.push({ name: this.data.newTag, selected: true })
-
-    this.setData({ showAddTagModal: false, newTag: '', tagList: this.data.tagList })
-    this.__flushShowTagList__();
+    let index = this.data.tagList.findIndex(it => it.name == this.data.newTag ) 
+    if (index != -1) {
+      this.data.tagList[index].selected = true;
+    } else if (this.data.newTag) {
+      this.data.tagList.unshift({ name: this.data.newTag, selected: true })
+    }
+    
+    this.setData({ tagList: this.data.tagList, showAddTagModal: false, newTag: '' })
+    this.__flushShowTagList__()
   },
 
   onUpload: function() {

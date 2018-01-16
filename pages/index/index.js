@@ -13,7 +13,6 @@ Page({
   onLoad: function (options) {
     wx.getSystemInfo({
       success: res => {
-        console.log(res);
         var hight = res.screenHeight * 2;  // 转化成rpx
         this.setData({ scrollHeight: hight });
       }
@@ -52,7 +51,6 @@ Page({
     var scrollTop = this.data.scrollTop;
     this.setData({ scrollTop: e.detail.scrollTop });
     var hasFixed = this.data.hasFixed;
-    console.log("scrollTop:" + scrollTop);
     this.setData({ hasFixed: scrollTop >= 118 && !this.data.categoryTab && this.data.dateTab });
   },
 
@@ -86,5 +84,49 @@ Page({
         })
       }
     })
+  },
+    /**
+   * 用户滚动到顶部 
+   */
+  upper: function (){
+    this.setData({ hasFixed: false });
+  },
+  /**
+* 用户点击右上角分享
+*/
+  onShareAppMessage: function (res) {
+    return {
+      title: '脑洞随手拍',
+      path: '/pages/index/index',
+      //imageUrl:"/public/icons/logo.png",
+      success: function (res) {
+        if (res.errMsg == "shareAppMessage:ok") {
+          wx.showToast({
+            title: '转发成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }
+      },
+      fail: function (res) {
+        if (res.errMsg == "shareAppMessage:fail cancel") {
+          wx.showToast({
+            title: '转发取消',
+            duration: 2000
+          })
+        } else {
+          wx.showToast({
+            title: '转发失败',
+            duration: 2000
+          })
+        }
+      }
+    }
+
   }
+  
+
+
+ 
+
 })

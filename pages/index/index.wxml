@@ -1,4 +1,4 @@
-<scroll-view scroll-y style="height:{{ scrollHeight }}rpx" bindscroll="scroll">
+<scroll-view scroll-y style="height:{{ scrollHeight }}rpx" bindscroll="scroll" bindscrolltoupper="upper">
   <view class="home">
     <view class="home-banner">
       <image src="/public/images/banner.jpg"></image>
