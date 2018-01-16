@@ -4,10 +4,11 @@
     <block wx:for="{{ locations }}" wx:for-item="location" wx:key="key">
       <view class="img-container">
         <navigator url='/pages/photos/index?location={{ location.name }}' hover-class='none'>
-            <image data-src="{{ location.urls[0] }}" lazy-load="true" mode="scaleToFill" src="{{ location.urls[0] }}?imageView2/1/w/300/h/300/q/75"></image>
-          </navigator>
-        <text>{{ location.name }}</text>
+          <image class="image" data-src="{{ location.urls[0] }}" lazy-load="true" mode="scaleToFill" src="{{ location.urls[0] }}?imageView2/1/w/300/h/300/q/75"></image>
+            <text class="text-center">{{ location.name }}</text>
+        </navigator>
       </view>
     </block>
+    <view style="clear:both;"></view>
   </view>
 </scroll-view>

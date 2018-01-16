@@ -20,6 +20,10 @@ Component({
     location: {
       type: String,
       value: ""
+    },
+    keyword: {
+      type: String,
+      value: ""
     }
   },
 
@@ -63,7 +67,8 @@ Component({
         url: '/api/photo/count',
         data: {
           tag: this.data.tag,
-          location: this.data.location
+          location: this.data.location,
+          keyword: this.data.keyword
         },
         success: res => {
           this.setData({ total: res.data.count || 0 });
@@ -79,7 +84,8 @@ Component({
           pageSize: this.data.pageSize,
           pageNum: this.data.pageNum,
           tag: this.data.tag,
-          location: this.data.location
+          location: this.data.location,
+          keyword: this.data.keyword
         },
         success: (res) => {
           let results = res.data.photos;
