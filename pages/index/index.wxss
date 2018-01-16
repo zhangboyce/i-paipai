@@ -52,12 +52,18 @@
 
 .home-sub-bar .icon-date {
   margin-left: 20rpx;
-  margin-right: 14rpx;
+}
+.text-date{
+   display: inline-block;
+   padding: 0 14rpx;
+}
+.text-category{
+   display: inline-block;
+   padding: 0 14rpx;
 }
 
 .home-sub-bar .icon-category {
   margin-left: 50rpx;
-  margin-right: 14rpx;
 }
 
 .home-sub-bar .icon-search {

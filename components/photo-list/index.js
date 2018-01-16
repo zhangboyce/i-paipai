@@ -5,9 +5,9 @@ const app = getApp();
 Component({
   behaviors: [],
   properties: {
-    pageNum: { 
-      type: Number, 
-      value: 1 
+    pageNum: {
+      type: Number,
+      value: 1
     },
     pageSize: {
       type: Number,
@@ -33,12 +33,12 @@ Component({
     hasMore: false,
     photoList: [],
     photoUrlList: []
-  }, 
+  },
 
-  ready: function () { 
+  ready: function () {
     wx.getSystemInfo({
       success: res => {
-        var hight = (res.windowHeight - 48) * (750 / res.windowWidth);
+        var hight = res.screenHeight * 2;  // 转化成rpx
         this.setData({ scrollHeight: hight });
       }
     })
@@ -56,13 +56,11 @@ Component({
       })
     },
 
-    onLoadMore: function() {
-      console.log('laod more');
+    onLoadMore: function () {
       this.__nextPage__();
     },
 
-    flush: function() {
-      console.log(this.data);
+    flush: function () {
       app.service({
         url: '/api/photo/count',
         data: {
@@ -77,7 +75,7 @@ Component({
       });
     },
 
-    __loadData__: function() {
+    __loadData__: function () {
       app.service({
         url: '/api/photo/list',
         data: {
@@ -104,7 +102,7 @@ Component({
       });
     },
 
-    __refresh__: function() {
+    __refresh__: function () {
       this.setData({
         photoList: [],
         photoUrlList: [],
@@ -117,7 +115,7 @@ Component({
       let hasMore = this.data.total > (this.data.pageNum - 1) * this.data.pageSize;
       this.setData({ hasMore: hasMore });
       if (!hasMore) return;
-      
+
       this.__loadData__();
     },
   }

@@ -38,13 +38,18 @@ App({
             wx.request({
               url: config.server + '/api/user/login/' + res.code,
               success: res => {
-                console.log(res);
                 this.setSession(res.data.sessionId);
                 this.setUserInfo(data.userInfo);
                 this.service({
                   url: '/api/user/setUserInfo',
                   data: data.userInfo,
-                  method: 'POST'
+                  method: 'POST',
+                  success: res => {
+                    // 当用户授权拒绝后，又重新同意后，需要重新获取首页的数据  
+                    wx.reLaunch({
+                      url: '/pages/index/index'
+                    })
+                  }
                 });
               }
             });
@@ -79,9 +84,9 @@ App({
       }
     })
   },
-  service: function(opts) {
+  service: function (opts) {
     let url = opts.url || '';
-    let success = opts.success || function () {};
+    let success = opts.success || function () { };
     let fail = opts.fail || function () { };
     let method = opts.method || 'GET';
     let data = opts.data || {};

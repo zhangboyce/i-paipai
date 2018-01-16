@@ -6,14 +6,15 @@ Page({
   data: {
     dateTab: true,
     scrollTop: 0,
-    hasFixed:false,
-    categories: {  }
+    hasFixed: false,
+    categories: {}
   },
-  
+
   onLoad: function (options) {
     wx.getSystemInfo({
       success: res => {
-        var hight = (res.windowHeight - 48) * (750 / res.windowWidth);
+        console.log(res);
+        var hight = res.screenHeight * 2;  // 转化成rpx
         this.setData({ scrollHeight: hight });
       }
     })
@@ -28,7 +29,7 @@ Page({
       url: '/api/photo/categories',
       success: res => {
         let listByLocation = res.data.listByLocation;
-        [1,2,3,4].forEach(it => {
+        [1, 2, 3, 4].forEach(it => {
           listByLocation.push({
             "location": " ",
             "data": ["/public/images/icon_nopic.png"]
@@ -44,7 +45,6 @@ Page({
   toMine: function () {
     wx.navigateTo({
       url: '/pages/user/index',
-      
     })
   },
 
@@ -52,7 +52,8 @@ Page({
     var scrollTop = this.data.scrollTop;
     this.setData({ scrollTop: e.detail.scrollTop });
     var hasFixed = this.data.hasFixed;
-    this.setData({ hasFixed: scrollTop >= 117 && !this.data.categoryTab && this.data.dateTab });
+    console.log("scrollTop:" + scrollTop);
+    this.setData({ hasFixed: scrollTop >= 118 && !this.data.categoryTab && this.data.dateTab });
   },
 
   showPhoto: function () {
