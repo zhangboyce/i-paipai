@@ -173,6 +173,7 @@ Page({
 
   onConfirmAddTagModal: function () {
     this.data.tagList.push({ name: this.data.newTag, selected: true})
+    
     this.setData({ showAddTagModal: false, newTag: '', tagList: this.data.tagList })
     this.__flushShowTagList__();
   },
@@ -180,6 +181,8 @@ Page({
   onUpload: function() {
     if (this.data.uploadImageList.length == 0) return;
     
+    wx.showLoading({title: '上传中'})
+
     let uploaded = 0;
     let uploadProgress = {  };
 
@@ -197,13 +200,28 @@ Page({
         success: res => {
           uploaded ++;
           if (uploaded == this.data.uploadImageList.length) {
+            wx.hideLoading();
+
+            wx.showModal({
+              title: '全部上传成功，您还想继续上传么?',
+              success: res => {
+                if (res.cancel) {
+                  wx.navigateTo({ url: "../index/index" })
+                } else {
+                  this.setData({
+                    uploadImageList: [],
+                    uploadProgress: {},
+                    tagList: this.data.tagList.map(it => { return { name: it.name, selected: false } }),
+                    checkedLocation: { title: "所在位置" },
+                  })
+                  this.__flushShowTagList__();
+                }
+              }
+            })
+
             wx.removeStorageSync("pois")
             wx.removeStorageSync("checkedLocation")
             wx.removeStorageSync("uploadImageList")
-
-            wx.navigateTo({
-              url: "../index/index"
-            })
           }
         }
       })
