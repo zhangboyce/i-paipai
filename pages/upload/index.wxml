@@ -29,10 +29,15 @@
     <block wx:for="{{ showTagList }}" wx:for-item="tagItem" wx:key="key">
       <span catchtap="onClickTag" data-name="{{ tagItem.name }}" class="tag {{ tagItem.selected ?'active':''}}"> {{ tagItem.name }}</span>
     </block>
-    <block wx:if="{{ tagExpand || tagList.length <= 4 }}">
+    <block wx:if="{{ tagExpand || tagList.length <= showTagCount }}">
+      <modal title="添加标签" show="{{ showAddTagModal }}" bindcancel="onCancelAddTagModal" bindconfirm="onConfirmAddTagModal">
+        <view class="modal-input">
+          <input maxlength="24" bindinput="onInputTag" placeholder="标签最长24个字" value='{{ newTag }}' class='input'/>
+        </view>
+      </modal>
       <span catchtap="onAddTag" class="tag">＋新标签</span>
     </block>
-    <image catchtap='onChangeTagExpand' wx:if="{{ !tagExpand && tagList.length > 4 }}" class="icon-open" src='/public/icons/arrow-down.png'></image>
+    <image catchtap='onChangeTagExpand' wx:if="{{ !tagExpand && tagList.length > showTagCount }}" class="icon-open" src='/public/icons/arrow-down.png'></image>
     <image catchtap='onChangeTagExpand' wx:if="{{ tagExpand }}" class="icon-open" src='/public/icons/arrow-up.png'></image>
   </view>
 

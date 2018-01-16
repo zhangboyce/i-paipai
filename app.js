@@ -96,7 +96,11 @@ App({
       method: method,
       data: data,
       success: res => {
-        success(res);
+        if (res.errcode == 10000) {
+          this.login();
+        } else {
+          success(res);
+        }
       },
       fail: () => {
         fail();
