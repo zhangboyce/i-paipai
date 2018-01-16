@@ -13,7 +13,7 @@
     <block wx:key="key" wx:for="{{ suggestList }}">
       <navigator hover-class="none" url='/pages/photos/index?keyword={{ item }}'>
         <view class="suggest-list">
-          <image class="suggest-img" src="/images/icon/icon-time.png"></image>
+          <image class="suggest-img" src="/public/icons/suggest-time.png"></image>
           <text class="suggest-text">
                 <text>{{ item }}</text>
           </text>
