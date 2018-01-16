@@ -3,9 +3,11 @@
     <block wx:for="{{ uploadImageList }}" wx:for-item="imageItem" wx:key="key">
       <li>
         <block wx:if="{{ uploadProgress[index] != 100 }}">
-          <image catchtap="deleteImage" data-index="{{ index }}" class="close" src='../../images/icon/icon-close.png'></image>
+          <image catchtap="deleteImage" data-index="{{ index }}" class="close" src='/public/icons/close.png'></image>
         </block>
-        <progress percent="{{ uploadProgress[index] }}" color='#8cc252'></progress>
+        <block wx:if="{{ uploadProgress[index] }}">
+          <progress percent="{{ uploadProgress[index] }}" color='#8cc252'></progress>
+        </block>
         <image catchtap="imgPreview" data-src="{{ imageItem }}" class="image" src="{{ imageItem }}"></image>
       </li>
     </block>
@@ -18,9 +20,9 @@
   </view>
 
   <view class="upload-location" catchtap='toLocation'>
-    <image class="icon-location" src='../../images/icon/icon-location.png'> </image>
+    <image class="icon-location" src='/public/icons/location.png'> </image>
     <text class="text-loaction">{{ checkedLocation.title }}</text>
-    <image class="icon-choose" src='../../images/icon/icon-right.png'> </image>
+    <image class="icon-choose" src='/public/icons/arrow-right.png'> </image>
   </view>
 
   <view class="upload-tag">
@@ -30,8 +32,8 @@
     <block wx:if="{{ tagExpand || tagList.length <= 4 }}">
       <span catchtap="onAddTag" class="tag">＋新标签</span>
     </block>
-    <image catchtap='onChangeTagExpand' wx:if="{{ !tagExpand && tagList.length > 4 }}" class="icon-open" src='../../images/icon/icon-bottom.png'></image>
-    <image catchtap='onChangeTagExpand' wx:if="{{ tagExpand }}" class="icon-open" src='../../images/icon/icon-top.png'></image>
+    <image catchtap='onChangeTagExpand' wx:if="{{ !tagExpand && tagList.length > 4 }}" class="icon-open" src='/public/icons/arrow-down.png'></image>
+    <image catchtap='onChangeTagExpand' wx:if="{{ tagExpand }}" class="icon-open" src='/public/icons/arrow-up.png'></image>
   </view>
 
   <view catchtap="onUpload" class="submit-btn">上传</view>

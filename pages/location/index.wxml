@@ -23,7 +23,7 @@
             <text class="title-text"> {{ arroundListItem.title }}
                 <text class="address-text"> {{ arroundListItem.address }} </text>
             </text>
-            <image class="checked" src='/images/icon/icon-check.png'></image>
+            <image class="checked" src='/images/icon/checked.png'></image>
           </li>
         </block>
       </ul>

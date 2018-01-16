@@ -1,4 +1,4 @@
-var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js');
+var QQMapWX = require('../../public/js/qqmap-wx-jssdk.min.js');
 let config = require('../../config.js');
 
 Page({

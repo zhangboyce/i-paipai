@@ -1,6 +1,6 @@
 <view>
   <view class="search-input">
-    <image class="search-img" src="/images/icon/icon-03.png"></image>
+    <image class="search-img" src="/public/icons/search.png"></image>
     <input type='text'></input>
   </view>
   <search items="{{ tags }}" label="标签" url="/pages/photos/index?tag="/>

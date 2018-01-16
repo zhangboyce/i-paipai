@@ -6,9 +6,9 @@
       </block>
   </view>
   <block wx:if="{{ expand }}">
-    <image bindtap='onChange' src="/images/icon/arrow-up.png"></image>
+    <image bindtap='onChange' src="/public/icons/arrow-up.png"></image>
   </block>
   <block wx:if="{{ !expand && items.length > 4 }}">
-    <image bindtap='onChange' src="/images/icon/arrow-down.png"></image>
+    <image bindtap='onChange' src="/public/icons/arrow-down.png"></image>
   </block>
 </view>

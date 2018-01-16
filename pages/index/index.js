@@ -31,7 +31,7 @@ Page({
         [1,2,3,4].forEach(it => {
           listByLocation.push({
             "location": " ",
-            "data": ["/images/home/icon_nopic.png"]
+            "data": ["/public/images/icon_nopic.png"]
           });
         });
         res.data.listByLocation = listByLocation.slice(0, 4);

@@ -13,7 +13,7 @@
       </block>
     </scroll-view>
   <view wx:if="{{ total == 0 }}" class="no-content">
-    <image src="/images/home/no-image.png"></image>
+    <image src="/public/images/no-image.png"></image>
     <text>暂无照片</text>
   </view>
 </block>
