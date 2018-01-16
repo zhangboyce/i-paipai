@@ -6,7 +6,6 @@
     "pages/search/index",
     "pages/upload/index",
     "pages/location/index",
-    "pages/logs/index",
     "pages/myipai/index",
     "pages/user/index"
   ],
