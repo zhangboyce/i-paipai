@@ -1,22 +1,22 @@
 <view>
   <view class="search-input">
     <image class="search-img" src="/images/icon/icon-03.png"></image>
-    <input type='text' value="{{ inputValue }}" bindfocus="inputFocus" bindinput="inputTyping" auto-focus></input>
+    <input type='text' value="{{ inputValue }}" bindinput="inputTyping" auto-focus></input>
   </view>
 
-  <block wx:if="{{ showMainWords.length==0 }}">
-    <search items="{{ tags }}" label="标签" url="/pages/photos/index?tag="/>
-    <search items="{{ locations }}" label="地点" url="/pages/photos/index?location="/>
+  <block wx:if="{{ inputValue.length==0 }}">
+    <search items="{{ tags }}" label="标签" url="/pages/photos/index?tag=" />
+    <search items="{{ locations }}" label="地点" url="/pages/photos/index?location=" />
   </block>
 
-  <view class="suggest-warp" wx:if="{{ showMainWords.length>0 }}">
-    <block  wx:key="key" wx:for="{{ suggestList }}" >
-      <navigator hover-class="none" url='/pages/photos/index?tag={{ item }}'>
-        <view class="suggest-list"> 
-            <image class="suggest-img" src="/images/icon/icon-time.png"></image>
-            <text class="suggest-text">
+  <view class="suggest-warp" wx:if="{{ inputValue.length>0 }}">
+    <block wx:key="key" wx:for="{{ suggestList }}">
+      <navigator hover-class="none" url='/pages/photos/index?keyword={{ item }}'>
+        <view class="suggest-list">
+          <image class="suggest-img" src="/images/icon/icon-time.png"></image>
+          <text class="suggest-text">
                 <text>{{ item }}</text>
-            </text>
+          </text>
         </view>
       </navigator>
     </block>

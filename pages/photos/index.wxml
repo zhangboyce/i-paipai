@@ -1,8 +1,8 @@
 <view>
   <view class="search-input">
     <image class="search-img" src="/images/icon/icon-03.png"></image>
-    <input type='text' disabled value="{{ location || tag }}" maxlength="20" bindtap="reloadInput"></input>
+    <input type='text' disabled value="{{ location || tag || keyword }}" maxlength="20" bindtap="reloadInput"></input>
     <image bindtap="closeInput" class="close-img" src="/images/icon/icon-close.png"></image>
   </view>
-  <photo-list tag="{{ tag }}" location="{{ location }}" />
+  <photo-list tag="{{ tag }}" location="{{ location }}" keyword="{{ keyword }}"/>
 </view>

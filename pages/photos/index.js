@@ -1,26 +1,20 @@
 Page({
-  data: { tag: '', location: ''},
+  data: { tag: '', location: '', keyword: '' },
 
   onLoad: function (options) {
-    this.setData({ tag: options.tag || '', location: options.location || '' })
+    this.setData({
+      tag: options.tag || '', location: options.location || '',
+      keyword: options.keyword || ''
+    })
   },
-  closeInput: function (){
-    // wx.navigateTo({
-    //   url: '/pages/search/index',
-    // })
+  closeInput: function () {
     wx.redirectTo({
       url: '/pages/search/index',
     })
-    
   },
-  reloadInput: function (){
-      console.log("reload");
-      wx.redirectTo({
-        url: "/pages/search/index?location=" + this.data.location+"&tag="+this.data.tag,
-      })
-
-      // wx.navigateTo({
-      //   url: "/pages/search/index?location=" + this.data.location + "&tag=" + this.data.tag,
-      // })
+  reloadInput: function () {
+    wx.redirectTo({
+      url: "/pages/search/index?location=" + this.data.location + "&tag=" + this.data.tag + "&keyword=" + this.data.keyword,
+    })
   }
 })
