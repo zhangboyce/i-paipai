@@ -96,7 +96,9 @@ App({
       method: method,
       data: data,
       success: res => {
+        console.log(res)
         if (res.errcode == 10000) {
+          console.log(res)
           this.login();
         } else {
           success(res);

@@ -172,8 +172,8 @@ Page({
   },
 
   onConfirmAddTagModal: function () {
-    this.data.tagList.push({ name: this.data.newTag, selected: true})
-    
+    this.data.tagList.push({ name: this.data.newTag, selected: true })
+
     this.setData({ showAddTagModal: false, newTag: '', tagList: this.data.tagList })
     this.__flushShowTagList__();
   },

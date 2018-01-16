@@ -7,7 +7,10 @@ Component({
   properties: {
     items: { 
       type: Array, 
-      value: []
+      value: [],
+      observer: function (newVal, oldVal) {
+        this.setData({ showItems: this.data.expand ? newVal : newVal.slice(0, 4) })
+      }
     },
     label: {
       type: String,
@@ -24,9 +27,9 @@ Component({
     showItems: []
    }, 
 
-   ready: function () {
+  ready: function () {
      this.__setShowItems__();
-   },
+  },
 
   methods: {
     onChange: function () {
@@ -35,7 +38,7 @@ Component({
     },
 
     __setShowItems__: function() {
-      this.setData({ showItems: this.data.expand ? this.data.items : this.data.items.slice(0, 4)})
+      this.setData({ showItems: this.data.expand ? this.data.items : this.data.items.slice(0, 4) })
     }
   }
 })

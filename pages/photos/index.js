@@ -3,18 +3,15 @@ Page({
 
   onLoad: function (options) {
     this.setData({
-      tag: options.tag || '', location: options.location || '',
-      keyword: options.keyword || ''
-    })
+      tag: options.tag || '', location: options.location || '', keyword: options.keyword || ''})
   },
   closeInput: function () {
-    wx.redirectTo({
-      url: '/pages/search/index',
-    })
+    wx.navigateBack()
   },
   reloadInput: function () {
-    wx.redirectTo({
-      url: "/pages/search/index?location=" + this.data.location + "&tag=" + this.data.tag + "&keyword=" + this.data.keyword,
-    })
+    wx.navigateBack()
+    // wx.redirectTo({
+    //   url: "/pages/search/index?location=" + this.data.location + "&tag=" + this.data.tag + "&keyword=" + this.data.keyword,
+    // })
   }
 })
