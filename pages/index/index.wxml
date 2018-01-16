@@ -2,11 +2,15 @@
   <view class="home">
     <view class="home-banner">
       <image src="/public/images/banner.jpg"></image>
-      <view><text class="home-banner-txt">我的相册</text><text class="home-banner-time">2016.0908-2018.0102</text></view>
+      <view>
+        <text class="home-banner-txt">我的相册</text>
+        <text class="home-banner-time">2016.0908-2018.0102</text>
+      </view>
     </view>
 
     <view class="home-sub-bar {{ hasFixed ? 'active' : '' }}">
       <block wx:if="{{ dateTab }}">
+
         <image class="icon-date" catchtap="showDateTab" src='/public/icons/time-checked.png'></image>
         <text class="text-date active" catchtap="showDateTab">时间轴</text>
         <image class="icon-category" catchtap="showCategoryTab" src='/public/icons/category.png'></image>
@@ -30,17 +34,17 @@
     <!-- 分类 -->
     <view wx:else>
       <view class="home-classify">
-         <view class="home-classify-unit">
+        <view class="home-classify-unit">
           <navigator url='/pages/locations/index' hover-class='none'>
             <view class="home-classify-place">
               <view class="home-classify-unit-ls" wx:key="key" wx:for="{{ categories.listByLocation }}">
-                  <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
-                <text class="home-classify-unit-txt">{{ item.location }}</text>  
+                <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
+                <text class="home-classify-unit-txt">{{ item.location }}</text>
               </view>
             </view>
           </navigator>
           <text>地点</text>
-          </view>
+        </view>
         <view class="home-classify-all" wx:for="{{ categories.listByTag }}" wx:key="key">
           <navigator url='/pages/photos/index?tag={{ item.tag }}' hover-class='none'>
             <image src="{{ item.data[0] }}?imageView2/1/w/300/h/300/q/75" lazy-load="true" mode="scaleToFill"></image>
